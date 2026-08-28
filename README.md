@@ -3,6 +3,10 @@
 Strona salonu fryzjerskiego z rezerwacją online, panelem dla obsługi, blogiem
 i pełną wersją dwujęzyczną. Projekt pokazowy - fikcyjny salon, prawdziwy kod.
 
+**[selene-hair-studio.vercel.app](https://selene-hair-studio.vercel.app/pl)** ·
+[wersja angielska](https://selene-hair-studio.vercel.app/en) ·
+[blog](https://selene-hair-studio.vercel.app/pl/blog)
+
 ![Strona główna](docs/home.png)
 
 **Stack:** Next.js 15 (App Router) · TypeScript · Prisma · Zod · next-intl · Vitest · Playwright + axe
@@ -270,7 +274,7 @@ Zmienne środowiskowe do ustawienia w panelu Vercela:
 |---|---|
 | `DATABASE_URL` | Neon, adres **z puli** (zawiera `-pooler`) |
 | `DIRECT_URL` | Neon, adres **bez puli** - migracje muszą omijać PgBouncer |
-| `NEXT_PUBLIC_SITE_URL` | adres produkcyjny, np. `https://selene.vercel.app` |
+| `NEXT_PUBLIC_SITE_URL` | adres produkcyjny, np. `https://selene-hair-studio.vercel.app` |
 | `SESSION_SECRET` | własny, minimum 32 znaki |
 | `ADMIN_USER`, `ADMIN_PASSWORD_HASH` | `npm run hash-password -- <hasło>` |
 | `RESEND_API_KEY` | opcjonalnie, powiadomienia o rezerwacji |
