@@ -1,0 +1,310 @@
+{
+  "meta": {
+    "title": "Sélene Hair Studio - hair salon in Warsaw",
+    "description": "Cuts built around your hair's structure, colour matched to your skin tone. Hair salon at Puławska 128 in Warsaw. Online booking, consultation at no charge.",
+    "blogTitle": "Hair guide - Sélene Hair Studio",
+    "blogDescription": "Practical writing on hair care, colour and styling from the Sélene salon team."
+  },
+  "nav": {
+    "skip": "Skip to content",
+    "home": "Home",
+    "services": "Services",
+    "gallery": "Transformations",
+    "team": "Team",
+    "blog": "Blog",
+    "reviews": "Reviews",
+    "contact": "Contact",
+    "book": "Book a visit",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "language": "Language",
+    "switchTo": "Polski"
+  },
+  "hero": {
+    "eyebrow": "Sélene Hair Studio · Warsaw, Mokotów",
+    "headline": "Hair that walks into the room",
+    "headlineAccent": "before you do.",
+    "lead": "Cuts built around your hair's structure, colour matched to your skin tone. We start with a 20-minute diagnosis, not with a screenshot.",
+    "ctaPrices": "See prices",
+    "cardLabel": "At a glance",
+    "cardLink": "Full price list",
+    "cardNote": "Consultation and hair diagnosis before the quote - at no charge.",
+    "factSince": "In Mokotów since",
+    "factRating": "Google rating",
+    "factReviews": "Reviews",
+    "factTeam": "People on the team"
+  },
+  "ticker": [
+    "cutting",
+    "colour",
+    "balayage",
+    "baby lights",
+    "blonde correction",
+    "keratin",
+    "bridal updos",
+    "hair botox"
+  ],
+  "manifesto": {
+    "quote": "A bad haircut is rarely a matter of taste. Usually it is",
+    "quoteAccent": "a matter of diagnosis.",
+    "p1": "The same bob behaves differently on straight and wavy hair, differently after years of colouring and differently on fresh regrowth. That is why every first visit starts with a conversation and a strand assessment - the scissors come later.",
+    "p2Strong": "We say plainly what cannot be done.",
+    "p2": "If getting from black to platinum takes three sessions and six months, you hear it before the first comb-through, together with the real cost of the whole thing.",
+    "p3": "We work with Davines and Olaplex, in a room without the smell of ammonia and without rushing. One person looks after one client - not three chairs at once."
+  },
+  "services": {
+    "eyebrow": "Prices",
+    "title": "Starting prices, no asterisks",
+    "side": "The range depends on hair length and density. You get the exact quote after the diagnosis, before any work begins - never at the till.",
+    "from": "from {price} PLN",
+    "quote": "on request",
+    "minutes": "{minutes} min",
+    "note": "We accept cards, BLIK and cash. Booking a wedding date requires a 30% deposit.",
+    "items": {
+      "cut-women": {
+        "name": "Women's cut",
+        "desc": "Wash, wet cut and dry refinement, blow-dry. Consultation included.",
+        "tag": "Davines"
+      },
+      "cut-men": {
+        "name": "Men's cut and beard",
+        "desc": "Clipper and scissor work, fade or classic, beard shaping with a hot towel.",
+        "tag": ""
+      },
+      "color": {
+        "name": "Single-process colour",
+        "desc": "Regrowth or full head, finishing gloss and an ends trim.",
+        "tag": "ammonia free"
+      },
+      "balayage": {
+        "name": "Balayage and baby lights",
+        "desc": "Hand-painted lightening with a soft transition, toning and a rebuilding treatment.",
+        "tag": "Olaplex included"
+      },
+      "blonde-fix": {
+        "name": "Blonde correction",
+        "desc": "Fixing failed colour, removing green and brassy tones. We set the date after a strand diagnosis.",
+        "tag": "free consultation"
+      },
+      "keratin": {
+        "name": "Keratin and hair botox",
+        "desc": "Smoothing and sealing the cuticle. The effect lasts 8 to 14 weeks.",
+        "tag": ""
+      },
+      "updo": {
+        "name": "Bridal and occasion updo",
+        "desc": "Trial updo 190 PLN, deducted from the price on the day. Travel to venue available.",
+        "tag": "travel"
+      }
+    }
+  },
+  "gallery": {
+    "eyebrow": "Transformations",
+    "title": "Work from recent weeks",
+    "side": "Every result is a single visit, with no colour retouching in an editor. There is more on our Instagram.",
+    "shots": {
+      "caramel": {
+        "caption": "Caramel balayage",
+        "alt": "Warm caramel balayage on medium-length hair styled into waves"
+      },
+      "curls": {
+        "caption": "Curling-iron waves",
+        "alt": "Curling long dark hair with a curling iron"
+      },
+      "bob": {
+        "caption": "Blonde bob",
+        "alt": "Styling a short blonde bob with a comb during a cut"
+      },
+      "precision": {
+        "caption": "Precision cut",
+        "alt": "Cutting short grey hair with scissors at a lit vanity mirror"
+      },
+      "wash": {
+        "caption": "The ritual before colour",
+        "alt": "Washing hair at the salon basin before colouring"
+      },
+      "ash": {
+        "caption": "Ash blonde with highlights",
+        "alt": "Cool ash blonde with lightened strands, styled into soft waves"
+      }
+    }
+  },
+  "team": {
+    "eyebrow": "Team",
+    "title": "Three people, three specialities",
+    "side": "You can request a specific person when booking. If you are not sure, leave the field empty - we will match you.",
+    "bannerAlt": "Three hairdressers from the Sélene team holding scissors and brushes",
+    "members": {
+      "marta": {
+        "name": "Marta Zielińska",
+        "role": "Colour and blonde correction",
+        "bio": "15 years of lightening work. Handles the hardest transitions from dark bases and repairs after failed colour."
+      },
+      "iga": {
+        "name": "Iga Rutkowska",
+        "role": "Precision cutting",
+        "bio": "Bobs, fringes and short shapes. Teaches cutting technique on courses for hairdressers. Also takes men's cuts."
+      },
+      "nina": {
+        "name": "Nina Lewandowska",
+        "role": "Updos and styling",
+        "bio": "Weddings and events. Also travels to the venue, within 60 km of Warsaw."
+      }
+    }
+  },
+  "reviews": {
+    "eyebrow": "Reviews",
+    "title": "382 reviews, 4.9 average",
+    "side": "Selected comments from Google and Booksy. We do not delete the negative ones - we answer them.",
+    "region": "Client reviews, scrollable horizontally",
+    "prev": "Previous review",
+    "next": "Next review",
+    "rating": "Rating: {stars} out of 5",
+    "items": [
+      {
+        "stars": 5,
+        "text": "I came in after a failed lightening somewhere else. Marta said straight away it could not be done in one day - and she was right, because after two visits I have the colour I asked for.",
+        "author": "Ola K.",
+        "meta": "blonde correction · March 2026"
+      },
+      {
+        "stars": 5,
+        "text": "First time anyone asked how much time I actually spend on my hair in the morning, then cut it to match. It works without a straightener.",
+        "author": "Michał D.",
+        "meta": "men's cut · February 2026"
+      },
+      {
+        "stars": 5,
+        "text": "The wedding updo held from 11 in the morning until three at night, dancing included. The trial visit was worth it.",
+        "author": "Karolina W.",
+        "meta": "bridal updo · September 2025"
+      },
+      {
+        "stars": 4,
+        "text": "Great result, but the appointment ran 40 minutes over. The salon replied and offered compensation - I appreciate that.",
+        "author": "Ewa T.",
+        "meta": "balayage · January 2026"
+      }
+    ]
+  },
+  "blog": {
+    "eyebrow": "Blog",
+    "title": "The hair guide",
+    "side": "We write about what you ask us in the chair. No sponsored product rankings - only what we test in the salon.",
+    "readMore": "Read the full piece",
+    "all": "All posts",
+    "backToList": "Back to all posts",
+    "readingTime": "{minutes} min read",
+    "empty": "There are no posts in this language yet.",
+    "cta": "Got a question that is not here? Ask it when you book - we will answer at your visit."
+  },
+  "faq": {
+    "eyebrow": "Before you come",
+    "title": "Frequent questions",
+    "items": [
+      {
+        "question": "Do I need to arrive with clean hair?",
+        "answer": "No. For colouring it is actually better if your hair is a day past washing - the natural protective film reduces scalp irritation."
+      },
+      {
+        "question": "How long does a first visit take?",
+        "answer": "We add 20 minutes to the service for diagnosis and a conversation about home care. For lightening, set aside half a day."
+      },
+      {
+        "question": "What if I do not like the result?",
+        "answer": "Tell us within 7 days. Correcting the cut and the toner within that window is free."
+      },
+      {
+        "question": "How do I cancel?",
+        "answer": "By phone or through the form, at least 24 hours ahead. Later cancellations on services over 3 hours are charged at half the deposit."
+      },
+      {
+        "question": "Is the salon accessible with a wheelchair or pram?",
+        "answer": "Yes. Street-level entrance, no step, 120 cm between stations. The toilet is not adapted - the nearest accessible one is in the shopping centre next door."
+      }
+    ]
+  },
+  "booking": {
+    "eyebrow": "Online booking",
+    "title": "Book a visit in four steps",
+    "side": "You send a request, we confirm it by phone or text within one working day. The booking is binding once confirmed.",
+    "stepService": "Service",
+    "stepStylist": "Stylist",
+    "stepDate": "Day and time",
+    "stepContact": "Contact details",
+    "anyStylist": "Anyone",
+    "pickDayFirst": "Pick a day to see the available times.",
+    "loadingSlots": "Checking availability…",
+    "noSlots": "No times left for this service on that day. Try another day.",
+    "slotTaken": "taken",
+    "name": "Full name",
+    "phone": "Phone",
+    "phoneHint": "We will send the confirmation to this number.",
+    "email": "Email",
+    "emailHint": "Optional. We will send a copy of the confirmation there.",
+    "note": "Notes",
+    "noteHint": "Colour history, allergies, the result you want - the more we know, the better the quote.",
+    "consent": "I agree to be contacted by phone about this booking.",
+    "required": "required",
+    "submit": "Send booking request",
+    "submitting": "Sending…",
+    "errorTitle": "The form needs a few fixes",
+    "errorService": "Choose a service.",
+    "errorSlot": "Choose a day and time.",
+    "errorName": "Enter your full name.",
+    "errorPhone": "Enter a phone number, for example 601 234 567.",
+    "errorEmail": "That email address is not valid.",
+    "errorConsent": "Please tick the contact consent.",
+    "errorTaken": "That slot has just been taken. Please pick another time.",
+    "errorRate": "Too many attempts. Try again in an hour or give us a call.",
+    "errorServer": "We could not send the request. Call us and we will sort it out right away.",
+    "summaryTitle": "Your visit",
+    "summaryService": "Service",
+    "summaryStylist": "Stylist",
+    "summaryDate": "Date",
+    "summaryDuration": "Duration",
+    "summaryPrice": "From",
+    "summaryEmpty": "not selected",
+    "summaryNote": "This is the starting price. The final quote comes after the hair diagnosis, always before any work begins.",
+    "successTitle": "Request received",
+    "successBody": "We will confirm the time by phone within one working day. Reference: {id}.",
+    "successAnother": "Book another visit",
+    "callUs": "Call: {phone}"
+  },
+  "storefront": {
+    "eyebrow": "Find us",
+    "place": "Puławska 128 · Warsaw Mokotów",
+    "alt": "The Sélene salon window after dark, with the illuminated logo on the glass and the interior visible"
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Free slots usually within 5 days",
+    "lede": "The phone is fastest - we answer during salon hours. In the evening write to us and we will call back in the morning.",
+    "call": "Call: {phone}",
+    "write": "Send an email",
+    "salonAlt": "Salon interior: three styling chairs along a long mirror",
+    "hoursWeek": "Tuesday - Friday",
+    "hoursSat": "Saturday",
+    "hoursClosed": "Sunday, Monday",
+    "closed": "closed",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "directions": "Getting here",
+    "directionsText": "Wilanowska metro station, 6 minutes on foot. Courtyard parking from Wielicka street."
+  },
+  "footer": {
+    "rights": "© {year} Sélene Hair Studio · Puławska 128, Warsaw",
+    "prices": "Prices",
+    "booking": "Booking",
+    "blog": "Blog",
+    "contact": "Contact",
+    "instagram": "Instagram",
+    "privacy": "Privacy policy"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The address is wrong or the page has moved.",
+    "cta": "Back to the home page"
+  }
+}

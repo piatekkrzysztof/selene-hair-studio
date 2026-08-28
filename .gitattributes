@@ -1,0 +1,7 @@
+# Znormalizowane końce linii w repozytorium, niezależnie od systemu autora.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff2 binary

@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DATABASE_URL: "file:./ci.db"
+  NEXT_PUBLIC_SITE_URL: "http://127.0.0.1:3100"
+
+jobs:
+  quality:
+    name: Lint, typy, testy jednostkowe
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npx prisma generate
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: TypeScript
+        run: npm run typecheck
+
+      - name: Testy jednostkowe (silnik terminów)
+        run: npm test
+
+  e2e:
+    name: Testy e2e i audyt dostępności
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npx prisma generate
+      - run: npx prisma db push --skip-generate
+
+      - name: Instalacja przeglądarek
+        run: npx playwright install --with-deps chromium
+
+      - name: Playwright + axe
+        run: npm run test:e2e
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  lighthouse:
+    name: Budżet wydajności
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npx prisma generate
+      - run: npm run build
+
+      - name: Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.14.x
+          lhci autorun \
+            --collect.startServerCommand="npx next start -p 3100" \
+            --collect.url="http://127.0.0.1:3100/pl" \
+            --collect.numberOfRuns=3 \
+            --assert.assertions.categories:performance=0.9 \
+            --assert.assertions.categories:accessibility=1 \
+            --assert.assertions.categories:best-practices=0.95 \
+            --assert.assertions.categories:seo=1 \
+            --upload.target=filesystem \
+            --upload.outputDir=./lhci
+        continue-on-error: false
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: lighthouse
+          path: lhci/
+          retention-days: 7

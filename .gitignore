@@ -1,0 +1,26 @@
+node_modules/
+.next/
+out/
+build/
+
+# baza deweloperska SQLite
+*.db
+*.db-journal
+prisma/dev.db*
+
+.env
+.env.local
+.env*.local
+
+# testy
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+coverage/
+
+# system
+.DS_Store
+Thumbs.db
+*.tsbuildinfo
+next-env.d.ts

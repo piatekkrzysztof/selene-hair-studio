@@ -1,0 +1,310 @@
+{
+  "meta": {
+    "title": "Sélene Hair Studio - salon fryzjerski na Mokotowie",
+    "description": "Strzyżenie pod strukturę włosa, kolor pod odcień skóry. Salon fryzjerski przy Puławskiej 128 w Warszawie. Rezerwacja online, konsultacja bez opłat.",
+    "blogTitle": "Poradnik włosowy - Sélene Hair Studio",
+    "blogDescription": "Praktyczne teksty o pielęgnacji, koloryzacji i stylizacji włosów, pisane przez zespół salonu Sélene."
+  },
+  "nav": {
+    "skip": "Przejdź do treści",
+    "home": "Strona główna",
+    "services": "Usługi",
+    "gallery": "Metamorfozy",
+    "team": "Zespół",
+    "blog": "Blog",
+    "reviews": "Opinie",
+    "contact": "Kontakt",
+    "book": "Umów wizytę",
+    "menuOpen": "Otwórz menu",
+    "menuClose": "Zamknij menu",
+    "language": "Język",
+    "switchTo": "English"
+  },
+  "hero": {
+    "eyebrow": "Sélene Hair Studio · Warszawa, Mokotów",
+    "headline": "Włosy, które wchodzą do pokoju",
+    "headlineAccent": "przed tobą.",
+    "lead": "Strzyżenie pod strukturę włosa, kolor pod odcień skóry. Zaczynamy od 20-minutowej diagnozy, a nie od zdjęcia z internetu.",
+    "ctaPrices": "Zobacz cennik",
+    "cardLabel": "W skrócie",
+    "cardLink": "Pełny cennik",
+    "cardNote": "Konsultacja i diagnoza włosów przed wyceną - bez opłat.",
+    "factSince": "Na Mokotowie od",
+    "factRating": "Ocena Google",
+    "factReviews": "Opinii",
+    "factTeam": "Osób w zespole"
+  },
+  "ticker": [
+    "strzyżenie",
+    "koloryzacja",
+    "balejaż",
+    "baby lights",
+    "korekta blondu",
+    "keratyna",
+    "upięcia ślubne",
+    "botoks na włosy"
+  ],
+  "manifesto": {
+    "quote": "Zła fryzura to rzadko kwestia gustu. Najczęściej",
+    "quoteAccent": "kwestia diagnozy.",
+    "p1": "Ten sam bob wygląda inaczej na włosie prostym i na falującym, inaczej po latach farbowania i inaczej na świeżym odroście. Dlatego każda pierwsza wizyta zaczyna się od rozmowy i badania kondycji pasma - dopiero potem sięgamy po nożyczki.",
+    "p2Strong": "Mówimy wprost, czego się nie da.",
+    "p2": "Jeśli droga z czerni do platyny zajmie trzy sesje i pół roku, usłyszysz to przed pierwszym rozczesaniem, razem z realnym kosztem całości.",
+    "p3": "Pracujemy na Davines i Olaplex, w gabinecie bez amoniakowego zapachu i bez pośpiechu. Jedna osoba obsługuje jednego klienta - nie trzy fotele naraz."
+  },
+  "services": {
+    "eyebrow": "Cennik",
+    "title": "Ceny startowe, bez gwiazdek",
+    "side": "Widełki zależą od długości i gęstości włosów. Dokładną wycenę dostajesz po diagnozie, przed rozpoczęciem pracy - nigdy przy kasie.",
+    "from": "od {price} zł",
+    "quote": "wycena",
+    "minutes": "{minutes} min",
+    "note": "Płatność kartą, BLIK-iem i gotówką. Rezerwacja terminu ślubnego wymaga zadatku w wysokości 30% ceny.",
+    "items": {
+      "cut-women": {
+        "name": "Strzyżenie damskie",
+        "desc": "Mycie, strzyżenie na mokro i korekta na sucho, modelowanie. Konsultacja w cenie.",
+        "tag": "Davines"
+      },
+      "cut-men": {
+        "name": "Strzyżenie męskie i broda",
+        "desc": "Maszynka i nożyczki, fade lub klasyka, konturowanie brody ciepłym ręcznikiem.",
+        "tag": ""
+      },
+      "color": {
+        "name": "Koloryzacja jednolita",
+        "desc": "Odrost lub całość, tonowanie wykończeniowe i strzyżenie końcówek.",
+        "tag": "bez amoniaku"
+      },
+      "balayage": {
+        "name": "Balejaż i baby lights",
+        "desc": "Rozjaśnianie pasmami z płynnym przejściem, tonowanie i pielęgnacja odbudowująca.",
+        "tag": "Olaplex w cenie"
+      },
+      "blonde-fix": {
+        "name": "Korekta i wyjście z blondu",
+        "desc": "Naprawa nieudanej koloryzacji, usuwanie zieleni i miedzi. Termin ustalamy po diagnozie pasma.",
+        "tag": "konsultacja 0 zł"
+      },
+      "keratin": {
+        "name": "Keratyna i botoks na włosy",
+        "desc": "Wygładzenie i domknięcie łuski. Efekt utrzymuje się od 8 do 14 tygodni.",
+        "tag": ""
+      },
+      "updo": {
+        "name": "Upięcie ślubne i okazjonalne",
+        "desc": "Próbne upięcie 190 zł, odliczane od ceny w dniu uroczystości. Możliwy dojazd.",
+        "tag": "dojazd"
+      }
+    }
+  },
+  "gallery": {
+    "eyebrow": "Metamorfozy",
+    "title": "Prace z ostatnich tygodni",
+    "side": "Każda realizacja to jedna wizyta, bez retuszu koloru w edytorze. Więcej znajdziesz na naszym Instagramie.",
+    "shots": {
+      "caramel": {
+        "caption": "Karmelowy balejaż",
+        "alt": "Ciepły, karmelowy balejaż na średniej długości włosach ułożonych w fale"
+      },
+      "curls": {
+        "caption": "Fale na lokówkę",
+        "alt": "Układanie loków lokówką na ciemnych, długich włosach"
+      },
+      "bob": {
+        "caption": "Blond bob",
+        "alt": "Stylizacja krótkiego blond boba grzebieniem podczas strzyżenia"
+      },
+      "precision": {
+        "caption": "Strzyżenie precyzyjne",
+        "alt": "Strzyżenie krótkich siwych włosów nożyczkami przy toaletce z oświetleniem"
+      },
+      "wash": {
+        "caption": "Rytuał przed kolorem",
+        "alt": "Mycie włosów przy myjce fryzjerskiej przed koloryzacją"
+      },
+      "ash": {
+        "caption": "Popielaty blond z pasmami",
+        "alt": "Chłodny, popielaty blond z rozjaśnianymi pasmami, ułożony w miękkie fale"
+      }
+    }
+  },
+  "team": {
+    "eyebrow": "Zespół",
+    "title": "Trzy osoby, trzy specjalizacje",
+    "side": "Przy rezerwacji możesz wybrać konkretną osobę. Jeśli nie wiesz, kogo wybrać, zostaw pole puste - dopasujemy.",
+    "bannerAlt": "Trzy fryzjerki z zespołu Sélene z nożyczkami i szczotkami",
+    "members": {
+      "marta": {
+        "name": "Marta Zielińska",
+        "role": "Kolor i korekta blondu",
+        "bio": "15 lat pracy z rozjaśnianiem. Prowadzi najtrudniejsze wyjścia z ciemnych baz i naprawy po nieudanych farbowaniach."
+      },
+      "iga": {
+        "name": "Iga Rutkowska",
+        "role": "Strzyżenie precyzyjne",
+        "bio": "Boby, grzywki i krótkie formy. Uczy techniki cięcia na kursach dla fryzjerów. Przyjmuje też strzyżenia męskie."
+      },
+      "nina": {
+        "name": "Nina Lewandowska",
+        "role": "Upięcia i stylizacja",
+        "bio": "Sesje ślubne i eventowe. Przyjmuje także z dojazdem na miejsce uroczystości, w promieniu 60 km od Warszawy."
+      }
+    }
+  },
+  "reviews": {
+    "eyebrow": "Opinie",
+    "title": "382 opinie, średnia 4,9",
+    "side": "Wybrane komentarze z Google i Booksy. Nie usuwamy negatywnych - odpowiadamy na nie.",
+    "region": "Opinie klientów, przewijane w poziomie",
+    "prev": "Poprzednia opinia",
+    "next": "Następna opinia",
+    "rating": "Ocena: {stars} na 5",
+    "items": [
+      {
+        "stars": 5,
+        "text": "Przyszłam po nieudanym rozjaśnianiu w innym miejscu. Marta od razu powiedziała, że w jeden dzień się nie da - i dobrze, bo po dwóch wizytach mam kolor, o który prosiłam.",
+        "author": "Ola K.",
+        "meta": "korekta blondu · marzec 2026"
+      },
+      {
+        "stars": 5,
+        "text": "Pierwszy raz ktoś zapytał, ile czasu rano realnie poświęcam na włosy, i dopasował do tego strzyżenie. Wychodzi mi bez prostownicy.",
+        "author": "Michał D.",
+        "meta": "strzyżenie męskie · luty 2026"
+      },
+      {
+        "stars": 5,
+        "text": "Upięcie na ślub trzymało od 11 rano do trzeciej w nocy, łącznie z oczepinami. Próbna wizyta była tego warta.",
+        "author": "Karolina W.",
+        "meta": "upięcie ślubne · wrzesień 2025"
+      },
+      {
+        "stars": 4,
+        "text": "Efekt bardzo dobry, ale wizyta przeciągnęła się o 40 minut. Salon odpisał i zaproponował rekompensatę - doceniam.",
+        "author": "Ewa T.",
+        "meta": "balejaż · styczeń 2026"
+      }
+    ]
+  },
+  "blog": {
+    "eyebrow": "Blog",
+    "title": "Poradnik włosowy",
+    "side": "Piszemy o tym, o co pytacie na fotelu. Bez sponsorowanych rankingów kosmetyków - tylko to, co sprawdzamy w salonie.",
+    "readMore": "Czytaj całość",
+    "all": "Wszystkie wpisy",
+    "backToList": "Wróć do listy wpisów",
+    "readingTime": "{minutes} min czytania",
+    "empty": "Nie ma jeszcze wpisów w tym języku.",
+    "cta": "Masz pytanie, którego tu nie ma? Zadaj je przy rezerwacji - odpowiemy na wizycie."
+  },
+  "faq": {
+    "eyebrow": "Zanim przyjdziesz",
+    "title": "Najczęstsze pytania",
+    "items": [
+      {
+        "question": "Czy muszę przyjść z umytą głową?",
+        "answer": "Nie. Przy koloryzacji lepiej nawet, żeby włosy były dzień po myciu - naturalny film ochronny zmniejsza podrażnienie skóry."
+      },
+      {
+        "question": "Ile trwa pierwsza wizyta?",
+        "answer": "Do czasu usługi doliczamy 20 minut na diagnozę i rozmowę o pielęgnacji. Przy rozjaśnianiu zarezerwuj sobie pół dnia."
+      },
+      {
+        "question": "Co, jeśli efekt mi nie odpowiada?",
+        "answer": "Daj znać w ciągu 7 dni. Korekta strzyżenia i tonowania w tym czasie jest bezpłatna."
+      },
+      {
+        "question": "Jak odwołać wizytę?",
+        "answer": "Telefonicznie lub przez formularz, najpóźniej 24 godziny wcześniej. Późniejsze odwołania przy usługach powyżej 3 godzin obciążamy połową zadatku."
+      },
+      {
+        "question": "Czy salon jest dostępny dla osób z wózkiem?",
+        "answer": "Tak. Wejście z poziomu chodnika, bez progu, przestrzeń między stanowiskami ma 120 cm. Toaleta nie jest przystosowana - najbliższa dostępna jest w galerii obok."
+      }
+    ]
+  },
+  "booking": {
+    "eyebrow": "Rezerwacja online",
+    "title": "Umów wizytę w cztery kroki",
+    "side": "Wysyłasz prośbę o termin, my potwierdzamy ją telefonicznie lub SMS-em w ciągu jednego dnia roboczego. Rezerwacja jest wiążąca po potwierdzeniu.",
+    "stepService": "Usługa",
+    "stepStylist": "Osoba",
+    "stepDate": "Dzień i godzina",
+    "stepContact": "Dane kontaktowe",
+    "anyStylist": "Dowolna",
+    "pickDayFirst": "Wybierz dzień, żeby zobaczyć wolne godziny.",
+    "loadingSlots": "Sprawdzam wolne terminy…",
+    "noSlots": "Tego dnia nie ma już wolnych terminów na tę usługę. Wybierz inny dzień.",
+    "slotTaken": "zajęte",
+    "name": "Imię i nazwisko",
+    "phone": "Telefon",
+    "phoneHint": "Na ten numer wyślemy potwierdzenie terminu.",
+    "email": "E-mail",
+    "emailHint": "Opcjonalnie. Wyślemy na niego kopię potwierdzenia.",
+    "note": "Uwagi",
+    "noteHint": "Historia farbowania, alergie, docelowy efekt - im więcej wiemy, tym lepsza wycena.",
+    "consent": "Zgadzam się na kontakt telefoniczny w sprawie tej rezerwacji.",
+    "required": "wymagane",
+    "submit": "Wyślij prośbę o termin",
+    "submitting": "Wysyłam…",
+    "errorTitle": "Formularz wymaga poprawek",
+    "errorService": "Wybierz usługę.",
+    "errorSlot": "Wybierz dzień i godzinę.",
+    "errorName": "Podaj imię i nazwisko.",
+    "errorPhone": "Podaj numer telefonu w formacie 601 234 567.",
+    "errorEmail": "Nieprawidłowy adres e-mail.",
+    "errorConsent": "Zaznacz zgodę na kontakt.",
+    "errorTaken": "Ten termin właśnie został zajęty. Wybierz inną godzinę.",
+    "errorRate": "Za dużo prób. Spróbuj ponownie za godzinę albo zadzwoń.",
+    "errorServer": "Nie udało się wysłać zgłoszenia. Zadzwoń do nas, załatwimy to od ręki.",
+    "summaryTitle": "Twoja wizyta",
+    "summaryService": "Usługa",
+    "summaryStylist": "Osoba",
+    "summaryDate": "Termin",
+    "summaryDuration": "Czas",
+    "summaryPrice": "Cena od",
+    "summaryEmpty": "nie wybrano",
+    "summaryNote": "To cena startowa. Ostateczną wycenę podajemy po diagnozie włosów, zawsze przed rozpoczęciem pracy.",
+    "successTitle": "Zgłoszenie przyjęte",
+    "successBody": "Potwierdzimy termin telefonicznie w ciągu jednego dnia roboczego. Numer zgłoszenia: {id}.",
+    "successAnother": "Umów kolejną wizytę",
+    "callUs": "Zadzwoń: {phone}"
+  },
+  "storefront": {
+    "eyebrow": "Znajdziesz nas",
+    "place": "ul. Puławska 128 · Warszawa Mokotów",
+    "alt": "Witryna salonu Sélene po zmroku, z podświetlonym logo na szybie i widocznym wnętrzem"
+  },
+  "contact": {
+    "eyebrow": "Kontakt",
+    "title": "Wolne terminy zwykle w ciągu 5 dni",
+    "lede": "Najszybciej przez telefon - odbieramy w godzinach pracy salonu. Wieczorem najlepiej napisz, oddzwonimy rano.",
+    "call": "Zadzwoń: {phone}",
+    "write": "Napisz e-mail",
+    "salonAlt": "Wnętrze salonu: trzy fotele fryzjerskie przy długim lustrze",
+    "hoursWeek": "Wtorek - piątek",
+    "hoursSat": "Sobota",
+    "hoursClosed": "Niedziela, poniedziałek",
+    "closed": "nieczynne",
+    "address": "Adres",
+    "phone": "Telefon",
+    "email": "E-mail",
+    "directions": "Dojazd",
+    "directionsText": "Metro Wilanowska, 6 minut pieszo. Parking podwórzowy od ul. Wielickiej."
+  },
+  "footer": {
+    "rights": "© {year} Sélene Hair Studio · ul. Puławska 128, Warszawa",
+    "prices": "Cennik",
+    "booking": "Rezerwacja",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "instagram": "Instagram",
+    "privacy": "Polityka prywatności"
+  },
+  "notFound": {
+    "title": "Nie ma takiej strony",
+    "body": "Adres jest błędny albo strona została przeniesiona.",
+    "cta": "Wróć na stronę główną"
+  }
+}

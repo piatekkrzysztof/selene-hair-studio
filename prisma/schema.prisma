@@ -1,0 +1,52 @@
+// Baza rezerwacji.
+//
+// Decyzja projektowa: godziny trzymamy jako liczbę minut od północy
+// (startMin / endMin) razem z datą jako tekstem "YYYY-MM-DD", a nie jako
+// pojedynczy znacznik czasu. Powód: salon działa w jednej strefie czasowej
+// i myśli kategoriami "wtorek, 10:00". Trzymanie tego jako UTC wymusza
+// konwersje przy każdym odczycie i wywraca się przy zmianie czasu -
+// wizyta o 10:00 nie może nagle stać się wizytą o 9:00.
+// startsAt zostaje wyłącznie do sortowania i eksportu do kalendarza.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // Dev: SQLite. Prod: zmień na "postgresql" i podmień DATABASE_URL.
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Booking {
+  id String @id @default(cuid())
+
+  // Rezerwacja
+  serviceId String
+  stylistId String? // null = dowolna osoba z zespołu
+  date      String // YYYY-MM-DD, czas lokalny salonu
+  startMin  Int // minuty od północy, np. 600 = 10:00
+  endMin    Int // startMin + czas usługi + bufor na sprzątanie
+  startsAt  DateTime // pomocniczo: sortowanie, eksport do kalendarza
+
+  // Klient
+  customerName  String
+  customerPhone String
+  customerEmail String?
+  note          String?
+
+  status    BookingStatus @default(PENDING)
+  locale    String        @default("pl")
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  // Zapytanie o wolne terminy zawsze filtruje po dniu, a potem po osobie.
+  @@index([date, stylistId])
+  @@index([status, startsAt])
+}
+
+enum BookingStatus {
+  PENDING // wysłana przez formularz, czeka na potwierdzenie telefoniczne
+  CONFIRMED
+  CANCELLED
+}
