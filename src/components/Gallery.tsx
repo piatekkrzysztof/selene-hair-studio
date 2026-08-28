@@ -25,7 +25,7 @@ export function Gallery() {
         </div>
 
         <div className="gallery">
-          {SHOTS.map((shot, index) => (
+          {SHOTS.map((shot) => (
             <figure className={shot.className} key={shot.key}>
               <Image
                 src={shot.src}
@@ -33,9 +33,9 @@ export function Gallery() {
                 width={shot.w}
                 height={shot.h}
                 sizes="(min-width: 820px) 33vw, 50vw"
-                // Pierwszy kafel bywa w pierwszym ekranie na desktopie,
-                // reszta ładuje się leniwie.
-                loading={index === 0 ? "eager" : "lazy"}
+                // Cała galeria jest poniżej pierwszego ekranu - hero nie ma
+                // zdjęcia, więc żaden kafel nie konkuruje o pasmo z LCP.
+                loading="lazy"
                 quality={78}
               />
               <figcaption>{t(`shots.${shot.key}.caption`)}</figcaption>

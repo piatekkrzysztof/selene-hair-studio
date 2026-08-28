@@ -128,6 +128,40 @@ i pięć dni otwarcia - schema, która się rozjedzie, wywali CI.
 
 ---
 
+## Wydajność
+
+Liczby zmierzone przez Lighthouse CI na runnerze GitHub Actions, mediana z trzech
+przebiegów, **emulacja telefonu z dławieniem sieci i procesora** - czyli najtrudniejszy
+wariant, nie desktop.
+
+| Kategoria | Wynik |
+|---|---|
+| Wydajność | 94 |
+| Dostępność | 100 |
+| Dobre praktyki | 96 |
+| SEO | 100 |
+
+| Metryka | Wartość |
+|---|---|
+| First Contentful Paint | 986 ms |
+| Largest Contentful Paint | 2973 ms |
+| Cumulative Layout Shift | 0 |
+| Total Blocking Time | 118 ms |
+
+CLS równe zero bierze się z trzech rzeczy: `next/font` rezerwuje miejsce na krój zanim
+się wczyta, każdy `next/image` ma podane wymiary, a sekcje nie doklejają się do układu
+po wczytaniu.
+
+LCP na poziomie 3 sekund to najsłabszy punkt i jest opisany progiem ostrzegawczym,
+a nie błędem - w tej chwili największym elementem jest nagłówek złożony krojem Bodoni
+Moda. Warto to jeszcze poprawić, ale nie kosztem typografii, która niesie całą stronę.
+
+Progi w `lighthouserc.json` liczą **medianę** z trzech przebiegów. Pierwszy przebieg na
+zimnym serwerze potrafi dać 72 punkty, więc próg oparty na pojedynczym pomiarze byłby
+loterią, a nie budżetem.
+
+---
+
 ## Uruchomienie
 
 Wymagany Node 20.11 lub nowszy.
@@ -174,7 +208,7 @@ Projekt jest gotowy pod Vercel. Do zmiany są trzy rzeczy:
    ląduje w logu serwera. Awaria poczty nie może kosztować klienta terminu.
 
 CI (`.github/workflows/ci.yml`) uruchamia lint, typy, testy jednostkowe, e2e z audytem axe
-oraz Lighthouse CI z progami: wydajność 0.9, dostępność 1.0, dobre praktyki 0.95, SEO 1.0.
+oraz Lighthouse CI z budżetem opisanym w `lighthouserc.json`.
 
 ---
 
@@ -207,9 +241,6 @@ Uczciwa lista, żeby nie trzeba było jej odkrywać podczas przeglądania kodu:
   Widok dla salonu z kalendarzem i zmianą statusu to naturalny następny krok.
 - **Uwierzytelniania.** Nie ma kont, więc nie ma czego chronić poza endpointem rezerwacji.
 - **Płatności i zadatków**, mimo że regulamin na stronie o nich mówi.
-- **Wyniku Lighthouse zmierzonego lokalnie.** Progi są wpisane w CI, ale liczbę zobaczysz
-  dopiero po pierwszym przebiegu na GitHubie. Zmierzone lokalnie jest to, co pokazuje build:
-  152 kB First Load JS na stronie głównej, 134 kB na blogu.
 - **Zdjęć własnych salonu.** Fotografie pochodzą z Unsplash i Pexels. W prawdziwym wdrożeniu
   sekcje „Metamorfozy" i „Zespół" muszą pokazywać realne prace - zdjęcia stockowe podpisane
   jako własne realizacje to problem prawny, nie tylko wizerunkowy.

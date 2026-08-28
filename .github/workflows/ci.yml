@@ -81,20 +81,12 @@ jobs:
       - run: npx prisma generate
       - run: npm run build
 
+      # Progi siedzą w lighthouserc.json. Podawanie ich flagami wiersza poleceń
+      # nie działa: lhci nie potrafi z nich zbudować struktury asercji.
       - name: Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.14.x
-          lhci autorun \
-            --collect.startServerCommand="npx next start -p 3100" \
-            --collect.url="http://127.0.0.1:3100/pl" \
-            --collect.numberOfRuns=3 \
-            --assert.assertions.categories:performance=0.9 \
-            --assert.assertions.categories:accessibility=1 \
-            --assert.assertions.categories:best-practices=0.95 \
-            --assert.assertions.categories:seo=1 \
-            --upload.target=filesystem \
-            --upload.outputDir=./lhci
-        continue-on-error: false
+          lhci autorun
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}

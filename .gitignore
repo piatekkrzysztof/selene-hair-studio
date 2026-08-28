@@ -18,6 +18,8 @@ prisma/dev.db*
 /blob-report/
 /playwright/.cache/
 coverage/
+lhci/
+.lighthouseci/
 
 # system
 .DS_Store
