@@ -12,6 +12,12 @@ prisma/dev.db*
 .env.local
 .env*.local
 
+# Sekrety produkcyjne do wklejenia w panelu Vercela.
+# NIE nazywaj tego pliku .env.production.local - Next ładuje go
+# automatycznie w trybie produkcyjnym i przesłania lokalną konfigurację,
+# przez co testy zaczynają pisać po produkcyjnej bazie.
+vercel-env.txt
+
 # testy
 /test-results/
 /playwright-report/
