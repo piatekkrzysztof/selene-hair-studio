@@ -14,7 +14,8 @@
     "test:e2e": "playwright test",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "hash-password": "tsx scripts/hash-password.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",

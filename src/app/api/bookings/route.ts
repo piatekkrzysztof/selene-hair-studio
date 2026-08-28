@@ -23,7 +23,10 @@ export const dynamic = "force-dynamic";
  */
 export async function POST(request: Request) {
   const ip = clientIpFrom(request.headers);
-  const limit = rateLimit(`booking:${ip}`, 5, 60 * 60 * 1000);
+  // Domyślnie 5 zgłoszeń na godzinę z adresu. Testy e2e podnoszą limit,
+  // bo tworzą kilka rezerwacji pod rząd z tego samego adresu.
+  const perHour = Number(process.env.BOOKING_RATE_LIMIT ?? 5);
+  const limit = rateLimit(`booking:${ip}`, perHour, 60 * 60 * 1000);
   pruneRateLimits();
 
   if (!limit.ok) {

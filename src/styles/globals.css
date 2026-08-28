@@ -1744,6 +1744,263 @@ img {
   font-size: var(--step-3);
 }
 
+/* ============================================================
+   PANEL SALONU
+   Narzędzie pracy, nie witryna: gęściej, spokojniej, bez ozdób.
+   Korzysta z tych samych tokenów, więc trzyma się marki.
+   ============================================================ */
+.panel-login {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: var(--sp-3);
+  background: var(--band);
+}
+.panel-login-card {
+  width: min(100%, 420px);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  padding: var(--sp-5) var(--sp-4);
+}
+.panel-login-card h1 {
+  font-size: var(--step-2);
+  margin: 0.6rem 0 var(--sp-4);
+}
+.panel-login-card .btn {
+  width: 100%;
+}
+.panel-error {
+  border: 1px solid var(--accent);
+  background: var(--accent-wash);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: var(--step--1);
+  padding: 0.8rem 1rem;
+  margin-bottom: var(--sp-3);
+}
+
+.panel-bar {
+  background: var(--band);
+  color: var(--on-band);
+  border-bottom: 1px solid var(--line-band);
+}
+.panel-bar-in {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding: var(--sp-3) var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.panel-bar strong {
+  font-family: var(--f-display);
+  font-size: var(--step-1);
+  letter-spacing: 0.06em;
+  display: block;
+  margin-top: 0.3rem;
+}
+
+.panel-main {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding: var(--sp-5) var(--gutter) var(--sp-7);
+}
+
+.panel-days {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+}
+.panel-day-label {
+  flex: 1 1 260px;
+  text-align: center;
+}
+.panel-day-label h1 {
+  font-size: var(--step-2);
+}
+/* Intl zwraca "sobota, 29 sierpnia". Podnosimy tylko pierwszą literę -
+   `capitalize` podniósłby też nazwę miesiąca, a po polsku pisze się ją małą. */
+.panel-day-label h1::first-letter {
+  text-transform: uppercase;
+}
+.panel-day-label p {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  margin-top: 0.3rem;
+}
+
+.panel-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin: 0 0 var(--sp-4);
+}
+.panel-stats > div {
+  background: var(--ground);
+  padding: var(--sp-3);
+}
+.panel-stats dt {
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+}
+.panel-stats dd {
+  margin: 0.4rem 0 0;
+  font-family: var(--f-display);
+  font-size: var(--step-2);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.panel-empty {
+  border: 1px dashed var(--line);
+  padding: var(--sp-5);
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.panel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+.panel-booking {
+  display: grid;
+  gap: var(--sp-2);
+  grid-template-columns: 1fr;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--ink-soft);
+  background: var(--surface);
+  padding: var(--sp-3);
+}
+.panel-booking[data-status="confirmed"] {
+  border-left-color: var(--accent);
+}
+/* Odwołaną wizytę wygaszamy kolorem i przekreśleniem, nigdy `opacity`
+   na całym wierszu - przezroczystość zbija kontrast tekstu poniżej progu
+   WCAG, co wychwycił audyt axe. */
+.panel-booking[data-status="cancelled"] {
+  border-left-color: var(--line);
+  background: var(--ground);
+}
+.panel-booking[data-status="cancelled"] .panel-what h2 {
+  text-decoration: line-through;
+  color: var(--ink-soft);
+}
+.panel-booking[data-status="cancelled"] .panel-time strong {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+}
+@media (min-width: 900px) {
+  .panel-booking {
+    grid-template-columns: 90px minmax(0, 1.4fr) minmax(0, 1fr) auto;
+    align-items: start;
+    gap: var(--sp-3);
+  }
+}
+.panel-time {
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+.panel-time strong {
+  font-family: var(--f-display);
+  font-size: var(--step-1);
+}
+.panel-time span {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+@media (min-width: 900px) {
+  .panel-time {
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+}
+.panel-what h2 {
+  font-family: var(--f-body);
+  font-size: var(--step-0);
+  font-weight: 600;
+}
+.panel-meta {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  margin-top: 0.25rem;
+}
+.panel-note {
+  font-size: var(--step--1);
+  margin-top: 0.5rem;
+  padding-left: 0.7rem;
+  border-left: 2px solid var(--line);
+  color: var(--ink-soft);
+}
+.panel-who {
+  font-size: var(--step--1);
+  display: grid;
+  gap: 0.2rem;
+}
+.panel-who a {
+  color: var(--accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+}
+.panel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+.panel-status {
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+}
+.panel-booking[data-status="confirmed"] .panel-status {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.panel-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.panel-confirm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: var(--step--1);
+}
+.panel-hint {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+.btn-small {
+  min-height: 44px;
+  padding: 0.5rem 0.9rem;
+  letter-spacing: 0.1em;
+}
+.btn-danger {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

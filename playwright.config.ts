@@ -28,5 +28,11 @@ export default defineConfig({
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
+    env: {
+      // Limit rezerwacji z jednego adresu istnieje po to, żeby bot nie zapchał
+      // grafiku. Testy tworzą kilka wizyt pod rząd, więc na czas przebiegu go
+      // podnosimy - inaczej suite wywracałby się na własnym zabezpieczeniu.
+      BOOKING_RATE_LIMIT: "100",
+    },
   },
 });

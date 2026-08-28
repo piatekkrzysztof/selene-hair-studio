@@ -1,7 +1,7 @@
 # Sélene Hair Studio
 
-Strona salonu fryzjerskiego z rezerwacją online, blogiem i pełną wersją dwujęzyczną.
-Projekt pokazowy - fikcyjny salon, prawdziwy kod.
+Strona salonu fryzjerskiego z rezerwacją online, panelem dla obsługi, blogiem
+i pełną wersją dwujęzyczną. Projekt pokazowy - fikcyjny salon, prawdziwy kod.
 
 ![Strona główna](docs/home.png)
 
@@ -52,14 +52,46 @@ Konflikt kończy się odpowiedzią 409 i komunikatem, a nie podwójną rezerwacj
 błędu** - bo to właśnie tam najczęściej psuje się semantyka. Próg to zero naruszeń
 WCAG 2.2 AA, na desktopie i na mobile.
 
-Test wyłapał dwa realne błędy w trakcie pisania tego projektu:
+Test wyłapał cztery realne błędy w trakcie pisania tego projektu:
 
 - `aria-label` na zwykłym `<div>` z gwiazdkami oceny (atrybut niedozwolony bez roli),
 - zwinięte menu mobilne zostawiało w kolejności tabulacji linki, których nie było widać -
-  naprawione atrybutem `inert`.
+  naprawione atrybutem `inert`,
+- odwołana wizyta w panelu była wygaszana przez `opacity: 0.55`, co dosłownie zbija
+  kontrast tekstu poniżej progu - wygaszenie musi iść kolorem, nie przezroczystością,
+- ciemny pasek panelu dziedziczył kolor etykiety przeznaczony dla jasnego tła
+  (kontrast 2,34:1).
 
 Automat łapie około jednej trzeciej problemów, więc nie zastępuje przejścia strony
 klawiaturą. Ale pilnuje, żeby regresje nie wchodziły niezauważone razem z commitem.
+
+### 4. Panel salonu bez biblioteki do logowania
+
+`/panel` to narzędzie pracy: grafik dnia, obłożenie, potwierdzanie i odwoływanie
+wizyt. Odwołanie nie kasuje wpisu - zmienia status, przez co zwalnia termin
+w silniku (`status: { not: "CANCELLED" }`), ale zostawia ślad, gdyby klient
+zadzwonił z pretensją.
+
+![Panel salonu](docs/panel.png)
+
+**Dlaczego bez Auth.js:** panel ma jednego operatora, a provider Credentials
+sprowadza się do tego samego, co robimy tutaj jawnie - podpisanej sesji
+w ciasteczku HttpOnly. Zamiast zależności jest 90 linii z testami:
+
+- podpis HMAC-SHA256 przez **Web Crypto**, bo middleware działa na edge,
+  gdzie `node:crypto` nie istnieje (pierwsza wersja nie skompilowała się
+  właśnie z tego powodu - stąd rozdział na `session.ts` i `password.ts`),
+- hasło jako scrypt z solą w zmiennej środowiskowej,
+- porównania w stałym czasie po obu stronach,
+- ten sam komunikat dla złego loginu i złego hasła, żeby formularz nie
+  podpowiadał, który login istnieje,
+- limit 10 prób logowania na kwadrans z adresu.
+
+Sesję sprawdzamy **dwa razy**: w middleware przy nawigacji i wewnątrz każdej
+akcji serwerowej. Akcja serwerowa to zwykły POST pod adres strony, więc
+oparcie autoryzacji wyłącznie na middleware byłoby jedną warstwą za mało.
+
+Gdy salon będzie potrzebował kont per osoba, wymianie podlega jeden moduł.
 
 ---
 
@@ -69,6 +101,7 @@ klawiaturą. Ale pilnuje, żeby regresje nie wchodziły niezauważone razem z co
 src/
 ├─ app/
 │  ├─ [locale]/          strony w wersji PL i EN (SSG)
+│  ├─ panel/            narzędzie salonu: grafik, potwierdzanie wizyt
 │  ├─ api/availability/  wolne terminy dla usługi i dnia
 │  ├─ api/bookings/      przyjmowanie rezerwacji
 │  ├─ sitemap.ts         mapa strony dla obu języków
@@ -80,6 +113,8 @@ src/
 │  ├─ availability.ts    silnik terminów (czysty, testowalny)
 │  ├─ booking-schema.ts  schemat Zod wspólny dla klienta i serwera
 │  ├─ jsonld.ts          dane strukturalne schema.org
+│  ├─ session.ts         podpis sesji panelu (Web Crypto, działa na edge)
+│  ├─ password.ts        scrypt (tylko Node)
 │  └─ blog.ts            wczytywanie wpisów z plików Markdown
 └─ styles/globals.css    system tokenów, jasny i ciemny motyw
 
@@ -189,6 +224,11 @@ Kilka rezerwacji na najbliższe dni, żeby było widać działanie wykrywania ko
 npm run db:seed
 ```
 
+Panel salonu: **http://localhost:3000/panel**, login `salon`, hasło `selene-demo-2026`.
+Te dane są w `.env.example` celowo, żeby dało się zajrzeć do panelu od razu po
+`npm install`. Na produkcji wygeneruj własne: `npm run hash-password -- <hasło>`
+i nowy `SESSION_SECRET`.
+
 ### Skrypty
 
 | Polecenie | Co robi |
@@ -200,6 +240,7 @@ npm run db:seed
 | `npm run lint` | ESLint |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run db:seed` | przykładowe rezerwacje |
+| `npm run hash-password -- <hasło>` | wpis do `ADMIN_PASSWORD_HASH` |
 | `npm run db:studio` | podgląd bazy |
 
 ---
@@ -245,9 +286,9 @@ której nie da się zrobić przez formularz.
 
 Uczciwa lista, żeby nie trzeba było jej odkrywać podczas przeglądania kodu:
 
-- **Panelu administracyjnego.** Rezerwacje ogląda się przez `npm run db:studio`.
-  Widok dla salonu z kalendarzem i zmianą statusu to naturalny następny krok.
-- **Uwierzytelniania.** Nie ma kont, więc nie ma czego chronić poza endpointem rezerwacji.
+- **Kont per osoba w panelu.** Jest jeden wspólny login dla salonu. Trzy stylistki
+  widzą ten sam grafik i nie da się odróżnić, kto potwierdził wizytę.
+- **Widoku tygodnia i miesiąca w panelu.** Na razie jest tylko dzień z nawigacją.
 - **Płatności i zadatków**, mimo że regulamin na stronie o nich mówi.
 - **Zdjęć własnych salonu.** Fotografie pochodzą z Unsplash i Pexels. W prawdziwym wdrożeniu
   sekcje „Metamorfozy" i „Zespół" muszą pokazywać realne prace - zdjęcia stockowe podpisane
