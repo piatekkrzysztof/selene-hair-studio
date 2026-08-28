@@ -22,6 +22,11 @@ coverage/
 lhci/
 .lighthouseci/
 
+# konfiguracja edytorów - należy do stanowiska, nie do projektu
+.idea/
+.vscode/
+*.swp
+
 # system
 .DS_Store
 Thumbs.db
