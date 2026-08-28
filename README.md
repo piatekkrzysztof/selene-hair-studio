@@ -184,26 +184,50 @@ wariant, nie desktop.
 
 | Metryka | Wartość |
 |---|---|
-| First Contentful Paint | 986 ms |
-| Largest Contentful Paint | 2973 ms |
+| First Contentful Paint | 1071 ms |
+| Largest Contentful Paint | 2918 ms |
 | Cumulative Layout Shift | 0 |
-| Total Blocking Time | 118 ms |
+| Total Blocking Time | 114 ms |
 
 CLS równe zero bierze się z trzech rzeczy: `next/font` rezerwuje miejsce na krój zanim
 się wczyta, każdy `next/image` ma podane wymiary, a sekcje nie doklejają się do układu
 po wczytaniu.
 
 LCP na poziomie 3 sekund to najsłabszy punkt i jest opisany progiem ostrzegawczym,
-a nie błędem. Przyczyna jest zmierzona, nie zgadywana: strona pobiera **cztery pliki
-fontów o łącznej wadze około 111 kB** - dwa kroje po dwa podzbiory znaków, bo polskie
-znaki diakrytyczne wymagają `latin-ext`. Nagłówek jest elementem LCP i czeka na Bodoni
-Moda.
+a nie błędem. Przyczyna jest zmierzona: strona pobiera **cztery pliki fontów o łącznej
+wadze 110 652 B** - dwa kroje po dwa podzbiory znaków, bo polskie znaki diakrytyczne
+wymagają `latin-ext`. Nagłówek jest elementem LCP i czeka na Bodoni Moda.
 
-Zejście poniżej 2,5 s oznacza rezygnację z drugiego kroju albo własne podzbiory fontów
-ograniczone do faktycznie używanych znaków. Pierwsze zabiłoby projekt wizualnie,
-drugie to realna optymalizacja na później. Warto wiedzieć, że próba przyspieszenia
-LCP przez odłożenie ładowania zdjęć galerii **nic nie dała** - pomiar przed i po był
-identyczny, bo wąskim gardłem nigdy nie były obrazy.
+### Dwie próby, które nic nie dały
+
+Warto je opisać, bo oszczędzą komuś powtarzania tej samej drogi.
+
+**Leniwe ładowanie zdjęć galerii.** Pomiar przed i po identyczny. Wąskim gardłem
+nigdy nie były obrazy - hero nie zawiera zdjęcia.
+
+**Odebranie preloadu fontowi tekstowemu.** Hipoteza: Archivo to 65 ze 103 kB
+oznaczonych w buildzie jako preload, więc bez niego Bodoni - od którego zależy LCP -
+dostanie pasmo wcześniej. Trzy przebiegi Lighthouse pokazały co innego:
+
+| | preload włączony | preload wyłączony |
+|---|---|---|
+| pobrane fonty | 110 652 B | 110 652 B |
+| LCP (mediana) | 2918 ms | 2912 ms |
+| FCP (mediana) | 1071 ms | 1527 ms |
+
+Bez preloadu przeglądarka **i tak pobiera** ten sam komplet plików - zmienia się
+wyłącznie kolejność. Bajtów nie ubyło, więc nie miało z czego ubyć czasu, a FCP
+pogorszyło się o 456 ms. Zmiana została cofnięta, a wniosek jest odwrotny do
+popularnej rady „nie preloaduj za dużo": na tej stronie preload obu krojów jest
+szybszy, i to mierzalnie.
+
+### Co zostaje
+
+Jedyną realną dźwignią są bajty, nie priorytet. Zejście poniżej 2,5 s oznacza własne
+podzbiory fontów ograniczone do faktycznie używanych glifów albo rezygnację z drugiego
+kroju. Drugie zabiłoby projekt wizualnie. Pierwsze wymaga narzędzi do subsettingu
+i trzymania plików fontów w repozytorium - wykonalne, ale to już inna kategoria
+złożoności niż jedna flaga w konfiguracji.
 
 Progi w `lighthouserc.json` liczą **medianę** z trzech przebiegów. Pierwszy przebieg na
 zimnym serwerze potrafi dać 72 punkty, więc próg oparty na pojedynczym pomiarze byłby
