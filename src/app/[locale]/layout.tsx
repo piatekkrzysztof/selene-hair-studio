@@ -17,10 +17,17 @@ const bodoni = Bodoni_Moda({
   variable: "--font-display",
 });
 
+// Bodoni składa nagłówek, który jest elementem LCP - ten krój ma pierwszeństwo.
+// Archivo celowo BEZ preload: to 65 ze 103 kB pobieranych z wyprzedzeniem,
+// a tekst akapitowy nie decyduje o pomiarze. Bez preloadu przeglądarka i tak
+// go pobierze, tylko niższym priorytetem, nie odbierając pasma Bodoniemu.
+// Układ się nie przesuwa, bo next/font dopasowuje metryki kroju zastępczego
+// (ascent/descent/size-adjust) - CLS zostaje na zerze.
 const archivo = Archivo({
   subsets: ["latin", "latin-ext"],
   display: "swap",
   variable: "--font-body",
+  preload: false,
 });
 
 export function generateStaticParams() {

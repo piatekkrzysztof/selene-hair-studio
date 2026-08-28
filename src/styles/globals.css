@@ -1437,9 +1437,17 @@ img {
   display: grid;
   gap: 0.3rem;
 }
+/* Linki do błędnych pól miały 19 px wysokości - poniżej progu 24 px z WCAG
+   2.2 AA. Axe zgłaszał je nieregularnie, bo ma wyjątek dla linków wplecionych
+   w tekst i przy innym łamaniu wierszy raz się w nim mieściły, raz nie.
+   To moment, w którym coś użytkownikowi nie wyszło, więc cel ma być wygodny,
+   nie minimalny - stąd 44 px, tak jak reszta elementów dotykowych. */
 .error-summary a {
   color: var(--accent);
   font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .summary-card {

@@ -42,6 +42,15 @@ test("formularz rezerwacji z błędami też przechodzi audyt", async ({ page }) 
 
   const results = await new AxeBuilder({ page }).withTags(TAGS).analyze();
   expect(results.violations.map((v) => v.id)).toEqual([]);
+
+  // Jawny pomiar zamiast polegania na regule axe: target-size ma wyjątek dla
+  // linków w tekście, przez co naruszenie wychodziło tylko przy niektórych
+  // łamaniach wiersza. Wysokość mierzymy wprost, żeby test nie migotał.
+  const wysokosci = await page.$$eval(".error-summary a", (linki) =>
+    linki.map((a) => Math.round(a.getBoundingClientRect().height)),
+  );
+  expect(wysokosci.length).toBeGreaterThan(0);
+  expect(Math.min(...wysokosci)).toBeGreaterThanOrEqual(44);
 });
 
 test("nawigacja klawiaturą dociera do głównej treści przez skip link", async ({ page }) => {
