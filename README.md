@@ -120,6 +120,8 @@ src/
 
 content/blog/{pl,en}/    treść bloga, wersjonowana razem z kodem
 prisma/schema.prisma     model rezerwacji
+prisma/migrations/       wersjonowana historia schematu
+docker-compose.yml       Postgres do pracy lokalnej
 tests/e2e/               Playwright + axe
 ```
 
@@ -212,11 +214,14 @@ Wymagany Node 20.11 lub nowszy.
 ```bash
 npm install
 cp .env.example .env
-npx prisma db push
+docker compose up -d     # Postgres na porcie 5433
+npm run db:migrate       # zakłada schemat z prisma/migrations
 npm run dev
 ```
 
-Baza deweloperska to SQLite w pliku - nie trzeba nic instalować ani konfigurować.
+Baza deweloperska stoi w kontenerze, na porcie 5433, żeby nie kolidować
+z Postgresem zainstalowanym w systemie. Dane logowania są w `docker-compose.yml`
+i celowo jawne - to element instrukcji uruchomienia, nie sekret.
 
 Kilka rezerwacji na najbliższe dni, żeby było widać działanie wykrywania kolizji:
 
@@ -239,6 +244,9 @@ i nowy `SESSION_SECRET`.
 | `npm run test:e2e` | Playwright + axe (sam buduje i startuje serwer) |
 | `npm run lint` | ESLint |
 | `npm run typecheck` | `tsc --noEmit` |
+| `npm run db:migrate` | nowa migracja w dev |
+| `npm run db:deploy` | zastosowanie migracji (CI, produkcja) |
+| `npm run db:reset` | czyszczenie bazy i migracje od zera |
 | `npm run db:seed` | przykładowe rezerwacje |
 | `npm run hash-password -- <hasło>` | wpis do `ADMIN_PASSWORD_HASH` |
 | `npm run db:studio` | podgląd bazy |
@@ -247,14 +255,31 @@ i nowy `SESSION_SECRET`.
 
 ## Wdrożenie
 
-Projekt jest gotowy pod Vercel. Do zmiany są trzy rzeczy:
+Cel: Vercel plus Postgres na Neonie.
 
-1. **Baza.** SQLite nie przetrwa na serwerze bezstanowym. W `prisma/schema.prisma` zmień
-   `provider` na `postgresql` i ustaw `DATABASE_URL` na Neon, Supabase albo Railway.
-2. **`NEXT_PUBLIC_SITE_URL`** - używane w `sitemap.xml`, adresach kanonicznych i JSON-LD.
-3. **`RESEND_API_KEY`** (opcjonalnie) - powiadomienia e-mail o nowej rezerwacji.
-   Bez klucza aplikacja działa normalnie: zgłoszenie trafia do bazy, a treść powiadomienia
-   ląduje w logu serwera. Awaria poczty nie może kosztować klienta terminu.
+Zmienne środowiskowe do ustawienia w panelu Vercela:
+
+| Zmienna | Skąd |
+|---|---|
+| `DATABASE_URL` | Neon, adres **z puli** (zawiera `-pooler`) |
+| `DIRECT_URL` | Neon, adres **bez puli** - migracje muszą omijać PgBouncer |
+| `NEXT_PUBLIC_SITE_URL` | adres produkcyjny, np. `https://selene.vercel.app` |
+| `SESSION_SECRET` | własny, minimum 32 znaki |
+| `ADMIN_USER`, `ADMIN_PASSWORD_HASH` | `npm run hash-password -- <hasło>` |
+| `RESEND_API_KEY` | opcjonalnie, powiadomienia o rezerwacji |
+
+**Nie kopiuj wartości z `.env.example` na produkcję.** Są tam po to, żeby projekt
+dało się uruchomić po `npm install`, i leżą w publicznym repozytorium.
+
+Migracje stosuje `vercel.json` w poleceniu budowania, a nie skrypt `build`
+w `package.json` - dzięki temu `npm run build` nadal działa lokalnie bez
+podniesionej bazy. Region ustawiony na `fra1` (Frankfurt), bo baza i klienci
+są w Europie, a każdy przeskok przez Atlantyk to kilkadziesiąt milisekund
+na zapytanie.
+
+Bez klucza Resend aplikacja działa normalnie: zgłoszenie trafia do bazy,
+a treść powiadomienia ląduje w logu serwera. Awaria poczty nie może kosztować
+klienta terminu.
 
 CI (`.github/workflows/ci.yml`) uruchamia lint, typy, testy jednostkowe, e2e z audytem axe
 oraz Lighthouse CI z budżetem opisanym w `lighthouserc.json`. Zmienne bierze z
@@ -263,6 +288,18 @@ oraz Lighthouse CI z budżetem opisanym w `lighthouserc.json`. Zmienne bierze z
 ---
 
 ## Decyzje i kompromisy
+
+**Postgres, choć dane go nie wymagają.** Jeden salon, jedna tabela, kilka rezerwacji
+dziennie - SQLite obsłużyłby to bez zadyszki i przez większość projektu tak właśnie
+było. Powodem zmiany nie jest skala, tylko miejsce wdrożenia: na Vercelu system plików
+funkcji jest efemeryczny, więc zapis do pliku SQLite albo się nie uda, albo zniknie przy
+następnym uruchomieniu instancji. Gdyby ta strona stała na serwerze z trwałym dyskiem,
+SQLite byłby wyborem właściwszym i tańszym.
+
+**Dwa adresy bazy.** `DATABASE_URL` wskazuje na pulę połączeń, `DIRECT_URL` na
+połączenie bezpośrednie. Każde wywołanie funkcji bezstanowej otwiera własne połączenie,
+więc bez puli baza szybko wyczerpuje limit. Migracje muszą jednak omijać PgBouncer,
+bo używają poleceń, których tryb transakcyjny nie przepuszcza.
 
 **Zwykły CSS zamiast Tailwinda.** Projekt ma jeden spójny system tokenów i około 30 klas
 komponentowych. Tailwind dołożyłby narzędzie tam, gdzie problem to nie objętość CSS,

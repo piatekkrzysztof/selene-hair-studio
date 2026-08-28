@@ -1,0 +1,30 @@
+# Baza deweloperska. Jedno polecenie i projekt działa:
+#
+#   docker compose up -d
+#   npx prisma migrate dev
+#
+# Port 5433, żeby nie kolidować z Postgresem zainstalowanym w systemie.
+# Dane logowania są lokalne i celowo jawne - to nie jest sekret, tylko
+# element instrukcji uruchomienia.
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: selene-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: selene
+      POSTGRES_PASSWORD: selene
+      POSTGRES_DB: selene
+    ports:
+      - "5433:5432"
+    volumes:
+      - selene-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U selene -d selene"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  selene-db:

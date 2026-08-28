@@ -13,9 +13,15 @@ generator client {
 }
 
 datasource db {
-  // Dev: SQLite. Prod: zmień na "postgresql" i podmień DATABASE_URL.
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+
+  // Dwa adresy, bo na serwerze bezstanowym każde wywołanie funkcji otwiera
+  // własne połączenie. DATABASE_URL wskazuje na pulę (PgBouncer po stronie
+  // Neona), a DIRECT_URL na połączenie bezpośrednie - migracje muszą omijać
+  // pulę, bo używają poleceń, których PgBouncer w trybie transakcyjnym
+  // nie przepuszcza. Lokalnie oba adresy są takie same.
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Booking {

@@ -3,7 +3,7 @@ node_modules/
 out/
 build/
 
-# baza deweloperska SQLite
+# baza deweloperska (pozostałość po SQLite, gdyby ktoś miał stary plik)
 *.db
 *.db-journal
 prisma/dev.db*

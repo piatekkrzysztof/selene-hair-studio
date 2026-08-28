@@ -1,0 +1,3 @@
+# Silnik bazy dla tego katalogu migracji.
+# NIE edytuj ręcznie - zmiana wymaga przegenerowania migracji.
+provider = "postgresql"
