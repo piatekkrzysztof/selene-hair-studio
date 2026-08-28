@@ -257,7 +257,8 @@ Projekt jest gotowy pod Vercel. Do zmiany są trzy rzeczy:
    ląduje w logu serwera. Awaria poczty nie może kosztować klienta terminu.
 
 CI (`.github/workflows/ci.yml`) uruchamia lint, typy, testy jednostkowe, e2e z audytem axe
-oraz Lighthouse CI z budżetem opisanym w `lighthouserc.json`.
+oraz Lighthouse CI z budżetem opisanym w `lighthouserc.json`. Zmienne bierze z
+`.env.example` - dzięki temu konfiguracja CI i lokalna nie mogą się rozjechać.
 
 ---
 

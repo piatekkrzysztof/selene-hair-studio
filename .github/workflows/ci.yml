@@ -48,6 +48,12 @@ jobs:
           node-version: 22
           cache: npm
 
+      # .env jest w .gitignore, więc CI startuje bez zmiennych panelu.
+      # Bierzemy udokumentowane wartości demonstracyjne z .env.example;
+      # zmienne ustawione na poziomie zadania i tak mają pierwszeństwo.
+      - name: Zmienne środowiskowe
+        run: cp .env.example .env
+
       - run: npm ci
       - run: npx prisma generate
       - run: npx prisma db push --skip-generate
@@ -76,6 +82,12 @@ jobs:
         with:
           node-version: 22
           cache: npm
+
+      # .env jest w .gitignore, więc CI startuje bez zmiennych panelu.
+      # Bierzemy udokumentowane wartości demonstracyjne z .env.example;
+      # zmienne ustawione na poziomie zadania i tak mają pierwszeństwo.
+      - name: Zmienne środowiskowe
+        run: cp .env.example .env
 
       - run: npm ci
       - run: npx prisma generate
