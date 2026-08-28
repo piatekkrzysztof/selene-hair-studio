@@ -219,6 +219,13 @@ npm run db:migrate       # zakłada schemat z prisma/migrations
 npm run dev
 ```
 
+Przed pierwszym uruchomieniem testów e2e trzeba jeszcze pobrać przeglądarkę -
+Playwright trzyma binaria poza `node_modules`, więc `npm install` ich nie ściąga:
+
+```bash
+npx playwright install chromium
+```
+
 Baza deweloperska stoi w kontenerze, na porcie 5433, żeby nie kolidować
 z Postgresem zainstalowanym w systemie. Dane logowania są w `docker-compose.yml`
 i celowo jawne - to element instrukcji uruchomienia, nie sekret.
