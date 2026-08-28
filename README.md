@@ -134,12 +134,12 @@ Liczby zmierzone przez Lighthouse CI na runnerze GitHub Actions, mediana z trzec
 przebiegów, **emulacja telefonu z dławieniem sieci i procesora** - czyli najtrudniejszy
 wariant, nie desktop.
 
-| Kategoria | Wynik |
-|---|---|
-| Wydajność | 94 |
-| Dostępność | 100 |
-| Dobre praktyki | 96 |
-| SEO | 100 |
+| Kategoria | `/pl` | `/pl/blog` |
+|---|---|---|
+| Wydajność | 94 | 97 |
+| Dostępność | 100 | 100 |
+| Dobre praktyki | 96 | 96 |
+| SEO | 100 | 100 |
 
 | Metryka | Wartość |
 |---|---|
@@ -153,8 +153,16 @@ się wczyta, każdy `next/image` ma podane wymiary, a sekcje nie doklejają się
 po wczytaniu.
 
 LCP na poziomie 3 sekund to najsłabszy punkt i jest opisany progiem ostrzegawczym,
-a nie błędem - w tej chwili największym elementem jest nagłówek złożony krojem Bodoni
-Moda. Warto to jeszcze poprawić, ale nie kosztem typografii, która niesie całą stronę.
+a nie błędem. Przyczyna jest zmierzona, nie zgadywana: strona pobiera **cztery pliki
+fontów o łącznej wadze około 111 kB** - dwa kroje po dwa podzbiory znaków, bo polskie
+znaki diakrytyczne wymagają `latin-ext`. Nagłówek jest elementem LCP i czeka na Bodoni
+Moda.
+
+Zejście poniżej 2,5 s oznacza rezygnację z drugiego kroju albo własne podzbiory fontów
+ograniczone do faktycznie używanych znaków. Pierwsze zabiłoby projekt wizualnie,
+drugie to realna optymalizacja na później. Warto wiedzieć, że próba przyspieszenia
+LCP przez odłożenie ładowania zdjęć galerii **nic nie dała** - pomiar przed i po był
+identyczny, bo wąskim gardłem nigdy nie były obrazy.
 
 Progi w `lighthouserc.json` liczą **medianę** z trzech przebiegów. Pierwszy przebieg na
 zimnym serwerze potrafi dać 72 punkty, więc próg oparty na pojedynczym pomiarze byłby
