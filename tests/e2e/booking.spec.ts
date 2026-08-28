@@ -38,13 +38,26 @@ test.describe("rezerwacja online", () => {
   test("pełna rezerwacja kończy się potwierdzeniem z numerem zgłoszenia", async ({ page }) => {
     await page.getByRole("radio", { name: /strzyżenie damskie/i }).check();
 
-    // Pierwszy dostępny dzień z listy.
-    await page.locator('input[name="date"]').first().check();
+    // Klikamy kolejne dni, aż trafimy na taki z wolną godziną - dokładnie tak,
+    // jak zrobiłby to klient. Branie na sztywno pierwszego dnia wywracało test,
+    // gdy poprzednie przebiegi zdążyły go zapełnić.
+    const days = page.locator('input[name="date"]');
+    const dayCount = await days.count();
+    let picked = false;
 
-    // Godziny dociągają się z API - czekamy na pierwszą aktywną.
-    const slot = page.locator('input[name="startMin"]:not([disabled])').first();
-    await slot.waitFor({ state: "attached", timeout: 15_000 });
-    await slot.check();
+    for (let i = 0; i < dayCount && !picked; i++) {
+      await days.nth(i).check();
+      const candidate = page.locator('input[name="startMin"]:not([disabled])').first();
+      try {
+        await candidate.waitFor({ state: "attached", timeout: 5_000 });
+        await candidate.check();
+        picked = true;
+      } catch {
+        // Ten dzień jest zajęty w całości, próbujemy następnego.
+      }
+    }
+
+    expect(picked, "żaden z widocznych dni nie ma wolnego terminu").toBe(true);
 
     await page.getByRole("textbox", { name: /imię i nazwisko/i }).fill("Anna Kowalska");
     await page.getByRole("textbox", { name: /^telefon/i }).fill("601 234 567");

@@ -17,6 +17,7 @@ prisma/dev.db*
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+/playwright/.auth/
 coverage/
 lhci/
 .lighthouseci/

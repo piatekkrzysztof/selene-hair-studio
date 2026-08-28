@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type APIRequestContext, type Page } from "@playwright/test";
+import { PANEL_STATE } from "./auth-state";
 
 /**
  * Panel salonu: dostęp, obsługa rezerwacji, audyt dostępności.
@@ -79,6 +80,9 @@ async function signIn(page: Page) {
 }
 
 test.describe("dostęp do panelu", () => {
+  // Ta grupa musi startować bez sesji, więc jawnie ją czyścimy.
+  test.use({ storageState: { cookies: [], origins: [] } });
+
   test("bez sesji panel przekierowuje na logowanie", async ({ page }) => {
     await page.goto("/panel");
     await expect(page).toHaveURL(/\/panel\/login/);
@@ -117,13 +121,13 @@ test.describe("dostęp do panelu", () => {
 });
 
 test.describe("obsługa rezerwacji", () => {
+  test.use({ storageState: PANEL_STATE });
+
   test("rezerwacja z formularza pojawia się w panelu i daje się potwierdzić", async ({
     page,
     request,
   }) => {
     const booking = await seedBooking(request, "Klientka Testowa");
-
-    await signIn(page);
     await page.goto(`/panel?d=${booking.date}`);
 
     const row = page.locator(".panel-booking").filter({ hasText: booking.customer });
@@ -143,8 +147,6 @@ test.describe("obsługa rezerwacji", () => {
     // u Marty i Igi. Dzięki temu sprawdzenie "termin wrócił do puli" nie
     // ściga się z rezerwacją zakładaną równolegle przez inny test.
     const booking = await seedBooking(request, "Klientka Do Odwolania", "updo");
-
-    await signIn(page);
     await page.goto(`/panel?d=${booking.date}`);
 
     const row = page.locator(".panel-booking").filter({ hasText: booking.customer });
@@ -168,7 +170,6 @@ test.describe("obsługa rezerwacji", () => {
   });
 
   test("dzień bez rezerwacji pokazuje stan pusty, nie pustą listę", async ({ page }) => {
-    await signIn(page);
     // Niedziela - salon zamknięty, więc komunikat musi to tłumaczyć.
     await page.goto("/panel?d=2026-03-08");
     await expect(page.locator(".panel-empty")).toContainText(/zamknięty/i);
@@ -177,8 +178,10 @@ test.describe("obsługa rezerwacji", () => {
 
 test.describe("dostępność panelu", () => {
   const TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
+  test.use({ storageState: PANEL_STATE });
 
-  test("logowanie bez naruszeń WCAG 2.2 AA", async ({ page }) => {
+  test("logowanie bez naruszeń WCAG 2.2 AA", async ({ page, context }) => {
+    await context.clearCookies();
     await page.goto("/panel/login");
     const results = await new AxeBuilder({ page }).withTags(TAGS).analyze();
     expect(results.violations.map((v) => `${v.id}: ${v.help}`)).toEqual([]);
@@ -186,7 +189,6 @@ test.describe("dostępność panelu", () => {
 
   test("panel z rezerwacjami bez naruszeń WCAG 2.2 AA", async ({ page, request }) => {
     const booking = await seedBooking(request, "Klientka Audyt");
-    await signIn(page);
     await page.goto(`/panel?d=${booking.date}`);
 
     const results = await new AxeBuilder({ page }).withTags(TAGS).analyze();

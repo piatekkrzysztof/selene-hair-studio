@@ -17,10 +17,12 @@ export default defineConfig({
   },
 
   projects: [
-    { name: "desktop", use: { ...devices["Desktop Chrome"] } },
+    // Loguje się raz i zapisuje sesję dla pozostałych projektów.
+    { name: "setup", testMatch: /auth\.setup\.ts/ },
+    { name: "desktop", use: { ...devices["Desktop Chrome"] }, dependencies: ["setup"] },
     // Pixel 5 zamiast iPhone'a: oba emulują ten sam viewport i dotyk,
     // ale Pixel działa na chromium, więc CI instaluje jedną przeglądarkę zamiast dwóch.
-    { name: "mobile", use: { ...devices["Pixel 5"] } },
+    { name: "mobile", use: { ...devices["Pixel 5"] }, dependencies: ["setup"] },
   ],
 
   webServer: {
@@ -33,6 +35,7 @@ export default defineConfig({
       // grafiku. Testy tworzą kilka wizyt pod rząd, więc na czas przebiegu go
       // podnosimy - inaczej suite wywracałby się na własnym zabezpieczeniu.
       BOOKING_RATE_LIMIT: "100",
+      LOGIN_RATE_LIMIT: "100",
     },
   },
 });

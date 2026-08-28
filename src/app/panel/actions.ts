@@ -35,8 +35,10 @@ export async function login(
   const ip = clientIpFrom(await headers());
 
   // Logowanie jest limitowane ostrzej niż rezerwacja - to jedyny punkt,
-  // w którym da się zgadywać hasło.
-  const limit = rateLimit(`login:${ip}`, 10, 15 * 60 * 1000);
+  // w którym da się zgadywać hasło. Wartość z env, bo testy e2e muszą móc
+  // ją podnieść; sam limiter ma testy jednostkowe.
+  const perQuarter = Number(process.env.LOGIN_RATE_LIMIT ?? 10);
+  const limit = rateLimit(`login:${ip}`, perQuarter, 15 * 60 * 1000);
   if (!limit.ok) {
     return { error: "Za dużo prób logowania. Spróbuj ponownie za kwadrans." };
   }
