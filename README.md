@@ -177,7 +177,7 @@ wariant, nie desktop.
 
 | Kategoria | `/pl` | `/pl/blog` |
 |---|---|---|
-| Wydajność | 95 | 98 |
+| Wydajność | 96 | 98 |
 | Dostępność | 100 | 100 |
 | Dobre praktyki | 96 | 96 |
 | SEO | 100 | 100 |
@@ -185,9 +185,9 @@ wariant, nie desktop.
 | Metryka | Wartość |
 |---|---|
 | First Contentful Paint | 1067 ms |
-| Largest Contentful Paint | 2755 ms |
+| Largest Contentful Paint | 2520 ms |
 | Cumulative Layout Shift | 0 |
-| Total Blocking Time | 137 ms |
+| Total Blocking Time | 129 ms |
 
 CLS równe zero bierze się z trzech rzeczy: `next/font` rezerwuje miejsce na krój zanim
 się wczyta, każdy `next/image` ma podane wymiary, a sekcje nie doklejają się do układu
@@ -254,10 +254,49 @@ Blog zszedł poniżej progu 2500 ms. Strona główna nie - jej nagłówek jest w
 więc mocniej zależy od momentu wczytania kroju. Model się zgadza: 48 kB mniej to
 około 240 ms transferu przy dławieniu do 1,6 Mb/s, a zysk na LCP wyniósł 163-247 ms.
 
-Dalsze zejście wymagałoby ograniczenia Bodoniego do jednej grubości (14,1 kB zamiast
-24,7 kB), ale ceny używają 400, a wordmark 600 - obie musiałyby przejść na 500.
-To już kompromis wizualny, a nie techniczny, więc zostaje jako decyzja do podjęcia,
-nie zrobiona po cichu.
+### Czwarty krok: wąskie gardło przestało być siecią
+
+Po subsettingu pomiar pokazał coś, czego nie zakładaliśmy: **cała sieć kończy się
+przed 200 ms**, serwer odpowiada w 10 ms, a LCP pada dopiero o 2755 ms. Bajty
+przestały być problemem - został główny wątek. `bootup-time` przypisywał 402 ms
+samego wykonania fragmentowi z Reactem, a długie zadanie na 184 ms startowało
+o 2583 ms, tuż przed LCP.
+
+Rozbicie fragmentów: React 47 kB (framework), next-intl 28 kB, Zod 14 kB.
+Dwa ostatnie były naszymi decyzjami, więc dało się je cofnąć:
+
+- **Tłumaczenia**: do przeglądarki idą tylko przestrzenie nazw używane przez
+  komponenty klienckie. Wcześniej cały plik był serializowany do HTML-a przy
+  każdym żądaniu - płacili za to także ci, którzy nigdy nie dojdą do formularza.
+- **Zod**: schemat ładuje się dynamicznie przy pierwszej wysyłce i rozgrzewa przy
+  wyborze usługi. Wspólne źródło reguł dla klienta i serwera zostaje - zmienia się
+  wyłącznie moment wczytania.
+
+| | przed | po |
+|---|---|---|
+| First Load JS | 152 kB | **139 kB** |
+| fragment strony głównej | 18,8 kB | **5,77 kB** |
+| LCP | 2755 ms | **2520 ms** |
+| TTI | 2799 ms | 2670 ms |
+
+### Bilans i miejsce, w którym warto przestać
+
+```
+start              LCP [3157, 2918, 2913]  mediana 2918
+po fontach         LCP [2956, 2755, 2735]  mediana 2755
+po JavaScripcie    LCP [2885, 2520, 2494]  mediana 2520
+```
+
+Łącznie **-398 ms, czyli 13,6%**. Najcieplejszy przebieg schodzi poniżej progu
+2500 ms, mediana zatrzymuje się 20 ms nad nim.
+
+I na tym świadomie kończymy. Rozrzut między przebiegami na współdzielonym runnerze
+wynosi 220-390 ms, więc dociskanie mediany o ostatnie 20 ms byłoby dopasowywaniem
+się do szumu, a nie inżynierią. Zostały dwie realne dźwignie i obie mają cenę:
+odroczenie hydracji formularza rezerwacji (jest pod pierwszym ekranem, ale przez
+chwilę byłby widoczny i nieaktywny) oraz ograniczenie Bodoniego do jednej grubości
+(ceny i wordmark musiałyby zmienić grubość). Obie są opisane, żadna nie została
+zrobiona po cichu.
 
 Progi w `lighthouserc.json` liczą **medianę** z trzech przebiegów. Pierwszy przebieg na
 zimnym serwerze potrafi dać 72 punkty, więc próg oparty na pojedynczym pomiarze byłby
@@ -389,8 +428,11 @@ której nie da się zrobić przez formularz.
 
 Uczciwa lista, żeby nie trzeba było jej odkrywać podczas przeglądania kodu:
 
-- **Kont per osoba w panelu.** Jest jeden wspólny login dla salonu. Trzy stylistki
-  widzą ten sam grafik i nie da się odróżnić, kto potwierdził wizytę.
+- **Filtra po osobie w panelu.** Grafik pokazuje cały zespół naraz; przydałaby się
+  lista rozwijana „pokaż tylko Martę". Świadomie **nie** planujemy kont per osoba -
+  trzy osoby w jednym pomieszczeniu i jeden tablet na recepcji nie potrzebują
+  osobnych logowań, a ślad „kto potwierdził wizytę" w takim zespole zastępuje pytanie
+  na głos.
 - **Widoku tygodnia i miesiąca w panelu.** Na razie jest tylko dzień z nawigacją.
 - **Płatności i zadatków**, mimo że regulamin na stronie o nich mówi.
 - **Zdjęć własnych salonu.** Fotografie pochodzą z Unsplash i Pexels. W prawdziwym wdrożeniu
