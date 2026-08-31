@@ -177,17 +177,17 @@ wariant, nie desktop.
 
 | Kategoria | `/pl` | `/pl/blog` |
 |---|---|---|
-| Wydajność | 94 | 97 |
+| Wydajność | 95 | 98 |
 | Dostępność | 100 | 100 |
 | Dobre praktyki | 96 | 96 |
 | SEO | 100 | 100 |
 
 | Metryka | Wartość |
 |---|---|
-| First Contentful Paint | 1071 ms |
-| Largest Contentful Paint | 2918 ms |
+| First Contentful Paint | 1067 ms |
+| Largest Contentful Paint | 2755 ms |
 | Cumulative Layout Shift | 0 |
-| Total Blocking Time | 114 ms |
+| Total Blocking Time | 137 ms |
 
 CLS równe zero bierze się z trzech rzeczy: `next/font` rezerwuje miejsce na krój zanim
 się wczyta, każdy `next/image` ma podane wymiary, a sekcje nie doklejają się do układu
@@ -241,6 +241,23 @@ Subsetting nie wymagał żadnego łańcucha narzędzi: parametr `text=` w API Go
 zwraca gotowy plik z podanymi glifami. Zakres znaków jest wypisany jawnie, a nie
 skanowany z treści - panel wyświetla nazwiska wpisywane przez ludzi, więc podzbiór
 oparty na skanie psułby się przy pierwszym nietypowym znaku.
+
+Efekt zmierzony w tym samym CI, mediana z trzech przebiegów:
+
+| | `/pl` | `/pl/blog` |
+|---|---|---|
+| wydajność | 93 → **95** | 97 → **98** |
+| LCP | 2918 → **2755 ms** | 2652 → **2404 ms** |
+| transfer fontów | 108,1 → **59,7 kB** | 108,1 → **59,7 kB** |
+
+Blog zszedł poniżej progu 2500 ms. Strona główna nie - jej nagłówek jest większy,
+więc mocniej zależy od momentu wczytania kroju. Model się zgadza: 48 kB mniej to
+około 240 ms transferu przy dławieniu do 1,6 Mb/s, a zysk na LCP wyniósł 163-247 ms.
+
+Dalsze zejście wymagałoby ograniczenia Bodoniego do jednej grubości (14,1 kB zamiast
+24,7 kB), ale ceny używają 400, a wordmark 600 - obie musiałyby przejść na 500.
+To już kompromis wizualny, a nie techniczny, więc zostaje jako decyzja do podjęcia,
+nie zrobiona po cichu.
 
 Progi w `lighthouserc.json` liczą **medianę** z trzech przebiegów. Pierwszy przebieg na
 zimnym serwerze potrafi dać 72 punkty, więc próg oparty na pojedynczym pomiarze byłby
