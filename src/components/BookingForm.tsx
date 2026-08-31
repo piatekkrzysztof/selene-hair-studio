@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { BOOKABLE_SERVICES, SALON, STYLISTS, type ServiceId, type StylistId } from "@/lib/salon";
-import { bookingInputSchema } from "@/lib/booking-schema";
 import { formatDate, formatDateShort, upcomingOpenDays } from "@/lib/dates";
 import { minutesToTime } from "@/lib/availability";
 
@@ -94,7 +93,25 @@ export function BookingForm() {
     return () => controller.abort();
   }, [serviceId, date, stylistId]);
 
-  function validate(): FieldError[] {
+  // Fokus po nieudanej wysyłce przenosimy w efekcie, a nie w
+  // requestAnimationFrame. Odkąd walidacja jest asynchroniczna (schemat
+  // dociąga się przy pierwszej wysyłce), rAF potrafił odpalić się przed
+  // zatwierdzeniem DOM przez Reacta i ref był jeszcze pusty. Efekt
+  // uruchamia się po commicie, więc element na pewno istnieje.
+  useEffect(() => {
+    if (errors.length > 0) errorBox.current?.focus();
+  }, [errors]);
+
+  useEffect(() => {
+    if (bookingId) successBox.current?.focus();
+  }, [bookingId]);
+
+  // Schemat wczytujemy dopiero przy wysyłce, a nie przy wejściu na stronę.
+  // To ten sam plik, co po stronie serwera - wspólne źródło reguł zostaje,
+  // przesuwa się wyłącznie moment jego pobrania. Zod to 14 kB, których nikt
+  // nie potrzebuje, dopóki nie kliknie "Wyślij".
+  async function validate(): Promise<FieldError[]> {
+    const { bookingInputSchema } = await import("@/lib/booking-schema");
     const found: FieldError[] = [];
     if (!serviceId) found.push({ id: "service", message: t("errorService"), target: "grupa-usluga" });
     if (!date || startMin === null)
@@ -130,14 +147,13 @@ export function BookingForm() {
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    const found = validate();
+    const found = await validate();
     setErrors(found);
 
     if (found.length > 0) {
       // Po nieudanym wysłaniu fokus idzie na podsumowanie błędów, a nie na
       // pierwsze pole - użytkownik czytnika ekranu najpierw słyszy, ile
       // rzeczy wymaga poprawki, a dopiero potem skacze do konkretnej.
-      requestAnimationFrame(() => errorBox.current?.focus());
       return;
     }
 
@@ -166,13 +182,11 @@ export function BookingForm() {
         setStartMin(null);
         // Odświeżamy siatkę godzin - ktoś właśnie zajął ten termin.
         setDate((current) => current);
-        requestAnimationFrame(() => errorBox.current?.focus());
         return;
       }
 
       if (response.status === 429) {
         setErrors([{ id: "rate", message: t("errorRate"), target: "grupa-termin" }]);
-        requestAnimationFrame(() => errorBox.current?.focus());
         return;
       }
 
@@ -180,10 +194,8 @@ export function BookingForm() {
 
       const data = (await response.json()) as { id: string };
       setBookingId(data.id);
-      requestAnimationFrame(() => successBox.current?.focus());
     } catch {
       setErrors([{ id: "server", message: t("errorServer"), target: "grupa-termin" }]);
-      requestAnimationFrame(() => errorBox.current?.focus());
     } finally {
       setSubmitting(false);
     }
@@ -278,7 +290,12 @@ export function BookingForm() {
                         name="serviceId"
                         value={item.id}
                         checked={serviceId === item.id}
-                        onChange={() => setServiceId(item.id)}
+                        onChange={() => {
+                          setServiceId(item.id);
+                          // Rozgrzewamy fragment z walidacją - do wysyłki
+                          // zostało kilka kroków, więc zdąży się pobrać.
+                          void import("@/lib/booking-schema");
+                        }}
                       />
                       <span className="box">
                         <b>{ts(`items.${item.id}.name`)}</b>

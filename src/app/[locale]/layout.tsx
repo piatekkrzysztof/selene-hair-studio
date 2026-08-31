@@ -87,7 +87,16 @@ export default async function LocaleLayout({
   // Bez tego strony wypadają ze statycznego renderowania i każdy request
   // renderuje się od nowa.
   setRequestLocale(locale);
-  const messages = await getMessages();
+
+  // Do przeglądarki wysyłamy wyłącznie przestrzenie nazw używane przez
+  // komponenty klienckie (nagłówek, karuzela opinii, formularz rezerwacji).
+  // Wcześniej szedł cały plik tłumaczeń, serializowany do HTML-a przy każdym
+  // żądaniu - płacili za to wszyscy, także ci, którzy nigdy nie dojdą do formularza.
+  const wszystkie = await getMessages();
+  const doKlienta = ["nav", "reviews", "booking", "services", "team"] as const;
+  const messages = Object.fromEntries(
+    doKlienta.map((klucz) => [klucz, wszystkie[klucz]]),
+  ) as typeof wszystkie;
 
   return (
     <html lang={locale} className={`${bodoni.variable} ${archivo.variable}`}>
