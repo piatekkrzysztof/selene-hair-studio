@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
-import { Archivo, Bodoni_Moda } from "next/font/google";
+import localFont from "next/font/local";
 
 import { routing } from "@/i18n/routing";
 import { siteUrl } from "@/lib/jsonld";
@@ -11,16 +11,29 @@ import "@/styles/globals.css";
 
 // next/font hostuje pliki fontów u nas, więc znika żądanie do Google i CLS
 // przy zamianie fontu zastępczego na docelowy.
-const bodoni = Bodoni_Moda({
-  subsets: ["latin", "latin-ext"],
+// Kroje hostujemy sami, w podzbiorach ograniczonych do 226 znaków, których
+// strona faktycznie używa. Google serwuje pełne bloki latin i latin-ext -
+// razem 110,7 kB w czterech plikach. Te dwa ważą 58,2 kB.
+// Odtworzenie: `node scripts/fetch-fonts.mjs`.
+const bodoni = localFont({
+  src: "../../fonts/bodoni-moda-subset.woff2",
+  weight: "400 600",
+  style: "normal",
   display: "swap",
   variable: "--font-display",
+  fallback: ["Georgia", "Times New Roman", "serif"],
+  // Dopasowanie metryk kroju zastępczego - bez tego wraca CLS.
+  adjustFontFallback: "Times New Roman",
 });
 
-const archivo = Archivo({
-  subsets: ["latin", "latin-ext"],
+const archivo = localFont({
+  src: "../../fonts/archivo-subset.woff2",
+  weight: "400 700",
+  style: "normal",
   display: "swap",
   variable: "--font-body",
+  fallback: ["Helvetica Neue", "Arial", "sans-serif"],
+  adjustFontFallback: "Arial",
 });
 
 export function generateStaticParams() {

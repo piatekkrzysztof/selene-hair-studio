@@ -221,13 +221,26 @@ pogorszyło się o 456 ms. Zmiana została cofnięta, a wniosek jest odwrotny do
 popularnej rady „nie preloaduj za dużo": na tej stronie preload obu krojów jest
 szybszy, i to mierzalnie.
 
-### Co zostaje
+### Trzecia próba: własne podzbiory
 
-Jedyną realną dźwignią są bajty, nie priorytet. Zejście poniżej 2,5 s oznacza własne
-podzbiory fontów ograniczone do faktycznie używanych glifów albo rezygnację z drugiego
-kroju. Drugie zabiłoby projekt wizualnie. Pierwsze wymaga narzędzi do subsettingu
-i trzymania plików fontów w repozytorium - wykonalne, ale to już inna kategoria
-złożoności niż jedna flaga w konfiguracji.
+Ta zadziałała. Kroje są hostowane samodzielnie i ograniczone do 226 znaków, których
+strona faktycznie używa - szczegóły w [`src/fonts/README.md`](src/fonts/README.md).
+
+| | przed | po |
+|---|---|---|
+| pliki | 4 (latin + latin-ext × 2 kroje) | 2 |
+| razem | 110,7 kB | **58,2 kB** |
+| Bodoni Moda | 38,0 kB | 24,7 kB |
+| Archivo | 65,0 kB | 33,4 kB |
+
+Największa pojedyncza oszczędność wyszła z pominięcia osi `opsz` w Bodonim: 45,8 kB
+z osią wobec 24,7 kB bez niej. Przypięcie pojedynczej wartości nic nie daje, bo Google
+i tak wysyła całą oś - trzeba ją z zapytania usunąć.
+
+Subsetting nie wymagał żadnego łańcucha narzędzi: parametr `text=` w API Google Fonts
+zwraca gotowy plik z podanymi glifami. Zakres znaków jest wypisany jawnie, a nie
+skanowany z treści - panel wyświetla nazwiska wpisywane przez ludzi, więc podzbiór
+oparty na skanie psułby się przy pierwszym nietypowym znaku.
 
 Progi w `lighthouserc.json` liczą **medianę** z trzech przebiegów. Pierwszy przebieg na
 zimnym serwerze potrafi dać 72 punkty, więc próg oparty na pojedynczym pomiarze byłby
