@@ -85,10 +85,42 @@ async function pobierz(krój) {
   return { nazwa: krój.nazwa, plik: krój.plik, kB: (bufor.length / 1024).toFixed(1) };
 }
 
+/**
+ * Osobno pobieramy warianty woff dla generatora obrazka Open Graph.
+ * Satori nie obsługuje woff2, a starszy User-Agent wymusza na Google
+ * zwrócenie woff. Te pliki nie trafiają do przeglądarki - są używane
+ * wyłącznie po stronie serwera przy budowaniu obrazka.
+ */
+const UA_WOFF = "Mozilla/5.0 (Windows NT 6.1; rv:27.0) Gecko/20100101 Firefox/27.0";
+
+const OG = [
+  { nazwa: "Bodoni Moda (og)", zapytanie: "Bodoni+Moda:wght@500", plik: "og-bodoni.woff" },
+  { nazwa: "Archivo (og)", zapytanie: "Archivo:wght@600", plik: "og-archivo.woff" },
+];
+
+async function pobierzOg(krój) {
+  const url =
+    `https://fonts.googleapis.com/css2?family=${krój.zapytanie}` +
+    `&text=${encodeURIComponent(znaki)}&display=swap`;
+
+  const css = await fetch(url, { headers: { "User-Agent": UA_WOFF } }).then((r) => r.text());
+  const adres = css.match(/url\((https:\/\/[^)]+)\)\s*format\('woff'\)/)?.[1];
+  if (!adres) throw new Error(`${krój.nazwa}: brak woff w odpowiedzi`);
+
+  const bufor = Buffer.from(await fetch(adres).then((r) => r.arrayBuffer()));
+  await writeFile(path.join(OUT, krój.plik), bufor);
+  return { nazwa: krój.nazwa, plik: krój.plik, kB: (bufor.length / 1024).toFixed(1) };
+}
+
 await mkdir(OUT, { recursive: true });
 
 console.info(`Zakres: ${znaki.length} znaków\n`);
 for (const krój of KROJE) {
   const wynik = await pobierz(krój);
-  console.info(`  ${wynik.nazwa.padEnd(14)} ${wynik.kB.padStart(6)} kB  ->  src/fonts/${wynik.plik}`);
+  console.info(`  ${wynik.nazwa.padEnd(18)} ${wynik.kB.padStart(6)} kB  ->  src/fonts/${wynik.plik}`);
+}
+
+for (const krój of OG) {
+  const wynik = await pobierzOg(krój);
+  console.info(`  ${wynik.nazwa.padEnd(18)} ${wynik.kB.padStart(6)} kB  ->  src/fonts/${wynik.plik}`);
 }

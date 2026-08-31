@@ -269,7 +269,8 @@
     "successTitle": "Request received",
     "successBody": "We will confirm the time by phone within one working day. Reference: {id}.",
     "successAnother": "Book another visit",
-    "callUs": "Call: {phone}"
+    "callUs": "Call: {phone}",
+    "demoNote": "Demonstration project: the salon is fictional and this request creates no real appointment. The form does write to a database, so please use made-up details."
   },
   "storefront": {
     "eyebrow": "Find us",
@@ -306,5 +307,86 @@
     "title": "Page not found",
     "body": "The address is wrong or the page has moved.",
     "cta": "Back to the home page"
+  },
+  "privacy": {
+    "eyebrow": "Legal",
+    "title": "Privacy policy",
+    "lede": "Who processes the data you enter in the booking form, why, and for how long.",
+    "updated": "Last updated: 28 August 2026.",
+    "demoHeading": "Before you read on",
+    "sections": [
+      {
+        "heading": "This is a demonstration project",
+        "body": [
+          "Sélene Hair Studio does not exist. The name, address, team, prices and reviews were invented for a portfolio project showing how to build a salon site with online booking.",
+          "The booking form, however, is fully functional and writes to a real database. If you enter your phone number, it reaches a server. Nobody will call it and no appointment will happen, but the data physically comes into existence - which is why this policy is not decoration.",
+          "If you want to see how booking works, use made-up details."
+        ]
+      },
+      {
+        "heading": "Who the controller is",
+        "body": [
+          "The data controller is Krzysztof Piątek, the author of this project. Contact details for data matters are at the end of this page.",
+          "No data protection officer has been appointed; at this scale of processing there is no such obligation."
+        ]
+      },
+      {
+        "heading": "What we collect",
+        "body": [
+          "From the booking form: full name, phone number, optionally an email address and the contents of the “Notes” field. We also store the chosen service, date, stylist and site language.",
+          "The “Notes” field is optional and you decide what goes in it. If you describe scalp conditions, allergies or medication, that constitutes health data - the only basis for processing it is your explicit consent, given by submitting the form. You do not have to fill this field in.",
+          "The server keeps standard request logs, including IP addresses, used solely to rate-limit submissions from a single address - that is, to defend against bots.",
+          "We use no analytics, no marketing pixels and no tracking tools. We do not profile you and make no automated decisions."
+        ]
+      },
+      {
+        "heading": "Purpose and legal basis",
+        "body": [
+          "Form data is used solely to handle your booking request. The basis is Article 6(1)(b) GDPR - steps taken at your request before entering into a contract - together with Article 6(1)(a), the consent to phone contact that you tick in the form.",
+          "Rate limiting relies on Article 6(1)(f), the legitimate interest in protecting the service from abuse."
+        ]
+      },
+      {
+        "heading": "How long we keep it",
+        "body": [
+          "Form submissions are deleted after 30 days. As this is a demonstration project there is no reason to keep them longer - there are no accounting obligations and no visit history to maintain.",
+          "Server logs are rotated according to the hosting provider's policy."
+        ]
+      },
+      {
+        "heading": "Who we entrust it to",
+        "body": [
+          "Application hosting: Vercel Inc. Database: Neon Inc., Frankfurt region. Email notifications: Resend, where notifications are enabled.",
+          "All three act as processors on our instructions. Data may be processed outside the European Economic Area; the providers rely on Standard Contractual Clauses approved by the European Commission.",
+          "We do not sell data and do not share it with anyone beyond the providers listed above."
+        ]
+      },
+      {
+        "heading": "Cookies",
+        "body": [
+          "The public site sets no cookies at all. There is no consent banner here because there is nothing to consent to.",
+          "The only cookie in the service - “selene_session” - is created after logging into the salon staff panel. It is strictly necessary for authentication, expires after eight hours and is not used for tracking."
+        ]
+      },
+      {
+        "heading": "Your rights",
+        "body": [
+          "You have the right to access your data, rectify it, erase it, restrict processing, port it, and object to processing based on legitimate interest. You may withdraw consent to contact at any time - this does not affect the lawfulness of processing before withdrawal.",
+          "Write to the address below and we will delete the submission immediately. You do not need to give a reason.",
+          "You also have the right to lodge a complaint with the Polish supervisory authority: Prezes Urzędu Ochrony Danych Osobowych, ul. Stawki 2, 00-193 Warsaw."
+        ]
+      }
+    ],
+    "contactHeading": "Data protection contact",
+    "contactBody": "Write or call:",
+    "back": "Back to the home page"
+  },
+  "error": {
+    "eyebrow": "Error",
+    "title": "Something went wrong",
+    "body": "The page failed to load. That is on us, not on you. Try again - and if you were booking, a phone call is the fastest way to sort it out.",
+    "retry": "Try again",
+    "call": "Call: +48 22 123 45 67",
+    "reference": "Reference: {digest}"
   }
 }

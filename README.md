@@ -160,7 +160,9 @@ i nie są duplikowane w plikach tłumaczeń. Dzięki temu zmiana ceny to jedna l
   i cennik w wynikach Google nie mogą się rozjechać. Do sprawdzenia w
   [Google Rich Results Test](https://search.google.com/test/rich-results).
 - `sitemap.xml` i `robots.txt` generowane przez Next, oba języki.
-- Metadane Open Graph i Twitter Card z `generateMetadata`.
+- Metadane Open Graph i Twitter Card z `generateMetadata`, wraz z **generowanym
+  obrazkiem** (`opengraph-image.tsx`, Satori) - osobnym dla każdego języka, składanym
+  z tych samych tekstów i krojów co strona. Ikona strony pochodzi z logo.
 - Nagłówki bezpieczeństwa (CSP, `X-Content-Type-Options`, `Referrer-Policy`,
   `Permissions-Policy`) w `next.config.ts`.
 
@@ -168,6 +170,29 @@ Test e2e parsuje bloki JSON-LD ze strony i sprawdza, czy `HairSalon` ma poprawny
 i pięć dni otwarcia - schema, która się rozjedzie, wywali CI.
 
 ---
+
+## Warstwa prawna i uczciwość wobec odwiedzającego
+
+Formularz rezerwacji **naprawdę** zapisuje dane do bazy, a salon jest fikcyjny.
+To rodzi obowiązek, o którym łatwo zapomnieć w projekcie portfolio: ktoś w dobrej
+wierze może zostawić swój prawdziwy numer telefonu.
+
+Dlatego:
+
+- **Nota przy formularzu**, nie schowana w regulaminie: projekt jest demonstracyjny,
+  zgłoszenie nie tworzy wizyty, dane trafiają do bazy, więc lepiej wpisać wymyślone.
+- **[Polityka prywatności](/pl/privacy)** opisująca stan faktyczny: kto jest
+  administratorem (autor projektu, nie fikcyjny salon), jakie dane zbieramy, na jakiej
+  podstawie z RODO, komu je powierzamy (Vercel, Neon, Resend), jak długo trzymamy
+  i jakie prawa przysługują. Pole „Uwagi” może zawierać dane o zdrowiu - jest to
+  wprost oznaczone razem z podstawą przetwarzania.
+- **Brak banera zgody na cookies**, bo strona publiczna nie zapisuje żadnych plików
+  cookie. Jedyne ciasteczko w serwisie obsługuje logowanie do panelu i jest niezbędne.
+- **Brak `aggregateRating` w danych strukturalnych**, mimo że strona pisze o 382
+  opiniach i ocenie 4,9. Wstawienie tego do schema.org bez prawdziwych opinii byłoby
+  podaniem Google zmyślonych danych.
+
+Obie wersje językowe polityki przechodzą ten sam audyt axe co reszta strony.
 
 ## Wydajność
 
@@ -435,6 +460,12 @@ Uczciwa lista, żeby nie trzeba było jej odkrywać podczas przeglądania kodu:
   na głos.
 - **Widoku tygodnia i miesiąca w panelu.** Na razie jest tylko dzień z nawigacją.
 - **Płatności i zadatków**, mimo że regulamin na stronie o nich mówi.
+- **E-maila potwierdzającego dla klienta.** Powiadomienie o nowej rezerwacji idzie
+  tylko do salonu; klient dostaje potwierdzenie telefonicznie.
+- **Prawdziwej kursywy Bodoniego.** Akcent w nagłówku („przed tobą”) jest pochylany
+  algorytmicznie przez przeglądarkę. Prawdziwa kursywa didone ma inną konstrukcję
+  liter i typograf to zobaczy - ale doładowanie jej to kolejny plik na ścieżce
+  krytycznej, więc kłóci się z pracą nad LCP.
 - **Zdjęć własnych salonu.** Fotografie pochodzą z Unsplash i Pexels. W prawdziwym wdrożeniu
   sekcje „Metamorfozy" i „Zespół" muszą pokazywać realne prace - zdjęcia stockowe podpisane
   jako własne realizacje to problem prawny, nie tylko wizerunkowy.

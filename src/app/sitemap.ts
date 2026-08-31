@@ -30,6 +30,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     });
 
+    entries.push({
+      url: `${base}/${locale}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: Object.fromEntries(routing.locales.map((l) => [l, `${base}/${l}/privacy`])),
+      },
+    });
+
     for (const slug of await getPostSlugs(locale)) {
       entries.push({
         url: `${base}/${locale}/blog/${slug}`,

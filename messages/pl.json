@@ -269,7 +269,8 @@
     "successTitle": "Zgłoszenie przyjęte",
     "successBody": "Potwierdzimy termin telefonicznie w ciągu jednego dnia roboczego. Numer zgłoszenia: {id}.",
     "successAnother": "Umów kolejną wizytę",
-    "callUs": "Zadzwoń: {phone}"
+    "callUs": "Zadzwoń: {phone}",
+    "demoNote": "Projekt demonstracyjny: salon jest fikcyjny, a zgłoszenie nie tworzy prawdziwej wizyty. Formularz zapisuje jednak dane do bazy, więc wpisz dane wymyślone."
   },
   "storefront": {
     "eyebrow": "Znajdziesz nas",
@@ -306,5 +307,86 @@
     "title": "Nie ma takiej strony",
     "body": "Adres jest błędny albo strona została przeniesiona.",
     "cta": "Wróć na stronę główną"
+  },
+  "privacy": {
+    "eyebrow": "Informacje prawne",
+    "title": "Polityka prywatności",
+    "lede": "Kto przetwarza dane wpisane w formularzu rezerwacji, w jakim celu i jak długo.",
+    "updated": "Ostatnia aktualizacja: 28 sierpnia 2026.",
+    "demoHeading": "Zanim przeczytasz dalej",
+    "sections": [
+      {
+        "heading": "To jest projekt demonstracyjny",
+        "body": [
+          "Sélene Hair Studio nie istnieje. Nazwa, adres, zespół, ceny i opinie zostały wymyślone na potrzeby projektu portfolio pokazującego, jak zbudować stronę salonu z rezerwacją online.",
+          "Formularz rezerwacji jest jednak w pełni działający i zapisuje dane do prawdziwej bazy. Jeśli wpiszesz swój numer telefonu, trafi on na serwer. Nikt pod niego nie zadzwoni i żadna wizyta się nie odbędzie, ale dane fizycznie powstaną - dlatego ta polityka nie jest ozdobnikiem.",
+          "Jeśli chcesz zobaczyć, jak działa rezerwacja, wpisz dane wymyślone."
+        ]
+      },
+      {
+        "heading": "Kto jest administratorem",
+        "body": [
+          "Administratorem danych jest Krzysztof Piątek, autor projektu. Kontakt w sprawach dotyczących danych - adresy podane na końcu tej strony.",
+          "Nie wyznaczono inspektora ochrony danych; przy tej skali przetwarzania nie ma takiego obowiązku."
+        ]
+      },
+      {
+        "heading": "Jakie dane zbieramy",
+        "body": [
+          "Formularz rezerwacji: imię i nazwisko, numer telefonu, opcjonalnie adres e-mail oraz treść pola „Uwagi”. Zapisujemy też wybraną usługę, termin, osobę i język strony.",
+          "Pole „Uwagi” jest dobrowolne i to Ty decydujesz, co w nim wpiszesz. Jeśli opiszesz w nim stan skóry głowy, alergie albo przyjmowane leki, będą to dane o zdrowiu - podstawą ich przetwarzania jest wyłącznie Twoja wyraźna zgoda wyrażona przez wysłanie formularza. Nie musisz tego pola wypełniać.",
+          "Serwer zapisuje standardowe logi żądań, w tym adres IP - są one używane wyłącznie do ograniczania liczby zgłoszeń z jednego adresu, czyli do obrony przed botami.",
+          "Nie używamy analityki, pikseli marketingowych ani narzędzi śledzących. Nie profilujemy i nie podejmujemy decyzji w sposób zautomatyzowany."
+        ]
+      },
+      {
+        "heading": "Po co i na jakiej podstawie",
+        "body": [
+          "Dane z formularza służą wyłącznie do obsługi zgłoszenia rezerwacji. Podstawą jest art. 6 ust. 1 lit. b RODO - działania podejmowane na Twoje żądanie przed zawarciem umowy - oraz art. 6 ust. 1 lit. a, czyli zgoda na kontakt telefoniczny, którą zaznaczasz w formularzu.",
+          "Ograniczanie liczby zgłoszeń opieramy na art. 6 ust. 1 lit. f, czyli uzasadnionym interesie polegającym na ochronie usługi przed nadużyciami."
+        ]
+      },
+      {
+        "heading": "Jak długo je trzymamy",
+        "body": [
+          "Zgłoszenia z formularza są usuwane po 30 dniach. Ponieważ projekt jest demonstracyjny, nie ma żadnego powodu, by trzymać je dłużej - nie ma obowiązków księgowych ani historii wizyt do prowadzenia.",
+          "Logi serwera są nadpisywane zgodnie z polityką dostawcy hostingu."
+        ]
+      },
+      {
+        "heading": "Komu je powierzamy",
+        "body": [
+          "Hosting aplikacji: Vercel Inc. Baza danych: Neon Inc., instancja w regionie Frankfurt. Wysyłka powiadomień e-mail: Resend, o ile powiadomienia są włączone.",
+          "Wszyscy trzej działają jako podmioty przetwarzające na nasze polecenie. Dane mogą być przetwarzane poza Europejskim Obszarem Gospodarczym; dostawcy stosują standardowe klauzule umowne zatwierdzone przez Komisję Europejską.",
+          "Nie sprzedajemy danych i nie udostępniamy ich nikomu poza wymienionymi dostawcami."
+        ]
+      },
+      {
+        "heading": "Pliki cookie",
+        "body": [
+          "Strona publiczna nie zapisuje żadnych plików cookie. Nie ma tu banera zgody, bo nie ma na co się zgadzać.",
+          "Jedyne ciasteczko w serwisie - „selene_session” - powstaje po zalogowaniu do panelu obsługi salonu. Jest niezbędne do działania logowania, wygasa po ośmiu godzinach i nie służy do śledzenia."
+        ]
+      },
+      {
+        "heading": "Twoje prawa",
+        "body": [
+          "Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia oraz sprzeciwu wobec przetwarzania opartego na uzasadnionym interesie. Zgodę na kontakt możesz wycofać w każdej chwili - nie wpływa to na zgodność z prawem przetwarzania sprzed jej wycofania.",
+          "Napisz na podany niżej adres, a usuniemy zgłoszenie od ręki. Nie musisz podawać powodu.",
+          "Przysługuje Ci również skarga do Prezesa Urzędu Ochrony Danych Osobowych, ul. Stawki 2, 00-193 Warszawa."
+        ]
+      }
+    ],
+    "contactHeading": "Kontakt w sprawie danych",
+    "contactBody": "Napisz albo zadzwoń:",
+    "back": "Wróć na stronę główną"
+  },
+  "error": {
+    "eyebrow": "Błąd",
+    "title": "Coś poszło nie tak",
+    "body": "Strona nie mogła się załadować. To po naszej stronie, nie po twojej. Spróbuj ponownie, a jeśli chodziło o rezerwację - najszybciej załatwimy ją telefonicznie.",
+    "retry": "Spróbuj ponownie",
+    "call": "Zadzwoń: 22 123 45 67",
+    "reference": "Numer zgłoszenia: {digest}"
   }
 }

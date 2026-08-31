@@ -17,6 +17,8 @@ const PAGES = [
   { name: "strona główna EN", path: "/en" },
   { name: "lista wpisów", path: "/pl/blog" },
   { name: "wpis", path: "/pl/blog/chlodny-blond" },
+  { name: "polityka prywatności", path: "/pl/privacy" },
+  { name: "privacy policy EN", path: "/en/privacy" },
 ];
 
 for (const target of PAGES) {

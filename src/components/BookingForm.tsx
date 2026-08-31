@@ -235,6 +235,11 @@ export function BookingForm() {
           <p className="head-side">{t("side")}</p>
         </div>
 
+        {/* Formularz naprawdę zapisuje dane do bazy, a salon jest fikcyjny.
+            Ta informacja musi być przy formularzu, a nie schowana w polityce
+            prywatności - inaczej ktoś w dobrej wierze zostawi swój numer. */}
+        <p className="demo-note">{t("demoNote")}</p>
+
         <div className="form-grid">
           {bookingId ? (
             <div className="confirm" tabIndex={-1} ref={successBox}>

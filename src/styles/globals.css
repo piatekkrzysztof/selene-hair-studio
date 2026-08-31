@@ -217,6 +217,7 @@ img {
   border: 1px solid transparent;
   border-radius: 0;
   cursor: pointer;
+  white-space: nowrap;
   transition:
     background-color 0.25s var(--ease),
     color 0.25s var(--ease),
@@ -2012,6 +2013,53 @@ img {
 .btn-danger {
   background: var(--accent);
   color: var(--accent-ink);
+}
+
+/* ---------- strona prawna ---------- */
+.legal-lede {
+  color: var(--ink-soft);
+  font-size: var(--step-1);
+  line-height: 1.5;
+  margin-top: var(--sp-3);
+  max-width: 56ch;
+}
+.legal-updated {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  margin-top: var(--sp-2);
+  margin-bottom: var(--sp-5);
+  font-variant-numeric: tabular-nums;
+}
+/* Akapity wewnątrz sekcji potrzebują własnego odstępu - grid na .prose
+   rozdziela tylko sekcje między sobą. */
+.article .prose section {
+  display: grid;
+  gap: var(--sp-2);
+}
+.article .prose section + section {
+  margin-top: var(--sp-3);
+}
+.article .prose section h2:first-child {
+  margin-top: 0;
+}
+.article .prose a {
+  color: var(--accent);
+}
+
+/* ---------- nota o projekcie demonstracyjnym ---------- */
+.demo-note {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-wash);
+  padding: var(--sp-3);
+  margin-bottom: var(--sp-4);
+  color: var(--ink);
+  font-size: var(--step--1);
+  line-height: 1.6;
+  max-width: 68ch;
+}
+
+.notfound .hero-actions {
+  justify-content: center;
 }
 
 @media (prefers-reduced-motion: reduce) {

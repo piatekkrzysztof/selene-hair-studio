@@ -24,6 +24,7 @@ export function Footer() {
             <Link href="/#rezerwacja">{t("booking")}</Link>
             <Link href="/blog">{t("blog")}</Link>
             <Link href="/#kontakt">{t("contact")}</Link>
+            <Link href="/privacy">{t("privacy")}</Link>
             <a href={SALON.instagram} rel="noopener noreferrer" target="_blank">
               {t("instagram")}
             </a>
